@@ -4,10 +4,11 @@
   "codeowners": ["@kbirger"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://www.github.com/kbirger/smarter-kettle-client",
+  "documentation": "https://www.github.com/kbirger/ha-smarter-integration",
   "homekit": {},
   "iot_class": "cloud_push",
   "loggers": ["smarter"],
+  "issue_tracker": "https://github.com/kbirger/ha-smarter-integration/issues",
   "requirements": ["smarter-client==0.1.9"],
   "ssdp": [],
   "zeroconf": []
