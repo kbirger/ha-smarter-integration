@@ -1,0 +1,84 @@
+"""Support for Smarter number fields."""
+
+from __future__ import annotations
+
+from collections.abc import Awaitable, Callable
+from dataclasses import dataclass
+
+from smarter_client.managed_devices.base import BaseDevice
+
+from homeassistant.components.number import (
+    NumberDeviceClass,
+    NumberEntity,
+    NumberEntityDescription,
+)
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import UnitOfTemperature, UnitOfTime
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
+
+from .const import DOMAIN
+from .entity import SmarterEntity
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterNumberEntityDescription(NumberEntityDescription):
+    """Class describing Ecobee number entities."""
+
+    set_fn: Callable[[BaseDevice, int], Awaitable]
+
+
+NUMBER_TYPES = [
+    SmarterNumberEntityDescription(
+        key="boil_temperature",
+        device_class=NumberDeviceClass.TEMPERATURE,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        native_min_value=0,
+        native_max_value=100,
+        native_step=1,
+        name="Boil Temperature",
+        set_fn=lambda device, value: device.set_boil_temperature(value),
+    ),
+    SmarterNumberEntityDescription(
+        key="keep_warm_time",
+        device_class=NumberDeviceClass.DURATION,
+        native_unit_of_measurement=UnitOfTime.MINUTES,
+        name="Keep Warm Time",
+        native_min_value=0,
+        native_max_value=40,
+        native_step=1,
+        set_fn=lambda device, value: device.set_keep_warm_time(value),
+    ),
+]
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up Smarter sensors."""
+    data = hass.data[DOMAIN]
+    entities = [
+        SmarterNumber(device, description)
+        for device in data.get("devices")
+        for description in NUMBER_TYPES
+    ]
+
+    async_add_entities(entities, True)
+
+
+class SmarterNumber(SmarterEntity, NumberEntity):
+    """Representation of a Smarter number."""
+
+    entity_description: SmarterNumberEntityDescription
+    _attr_has_entity_name = True
+
+    def set_native_value(self, value: float) -> None:
+        """Set new ventilator Min On Time value."""
+        self.entity_description.set_fn(self.device, int(value))
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the value reported by the number."""
+        return self.device.status.get(self.entity_description.key)
