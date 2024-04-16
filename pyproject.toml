@@ -16,6 +16,7 @@ license = {text = "MIT"}
 [project.optional-dependencies]
 testing = [
     "pytest-homeassistant-custom-component==0.1.0",
+    "pre-commit>=3.7.0",
 ]
 [tool.pdm]
 distribution = false

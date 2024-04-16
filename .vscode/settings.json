@@ -1,7 +1,10 @@
 {
-  "python.linting.pylintEnabled": true,
-  "python.linting.enabled": true,
-  "python.pythonPath": "venv/bin/python",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "editor.formatOnSave": true,
+  "python.defaultInterpreterPath": ".venv/Scripts/python",
+  "files.insertFinalNewline": true,
   "files.associations": {
     "*.yaml": "home-assistant"
   }
