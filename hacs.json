@@ -1,0 +1,12 @@
+{
+  "name": "Smarter Kettle and Coffee integration",
+  "hacs": "1.34.0",
+  "domains": [
+    "biwnary_sensor",
+    "sensor",
+    "switch",
+    "number"
+  ],
+  "iot_class": "Cloud Polling",
+  "homeassistant": "2024.4.0"
+}

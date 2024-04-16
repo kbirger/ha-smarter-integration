@@ -1,0 +1,21 @@
+[project]
+name = "homeassistant-smarter"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Kirill Birger", email = "kbirger@gmail.com"},
+]
+dependencies = [
+    "homeassistant>=2024.4.3",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[project.optional-dependencies]
+testing = [
+    "pytest-homeassistant-custom-component==0.1.0",
+]
+[tool.pdm]
+distribution = false
