@@ -1,17 +1,16 @@
 """Support for Smarter sensors."""
-
 from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from smarter_client.managed_devices.base import BaseDevice
-
-from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
+from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from smarter_client.managed_devices.base import BaseDevice
 
 from .const import DOMAIN
 from .entity import SmarterEntity

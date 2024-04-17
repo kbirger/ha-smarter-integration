@@ -1,21 +1,19 @@
 """Support for Smarter number fields."""
-
 from __future__ import annotations
 
-from collections.abc import Awaitable, Callable
+from collections.abc import Awaitable
+from collections.abc import Callable
 from dataclasses import dataclass
 
-from smarter_client.managed_devices.base import BaseDevice
-
-from homeassistant.components.number import (
-    NumberDeviceClass,
-    NumberEntity,
-    NumberEntityDescription,
-)
+from homeassistant.components.number import NumberDeviceClass
+from homeassistant.components.number import NumberEntity
+from homeassistant.components.number import NumberEntityDescription
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfTemperature, UnitOfTime
+from homeassistant.const import UnitOfTemperature
+from homeassistant.const import UnitOfTime
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from smarter_client.managed_devices.base import BaseDevice
 
 from .const import DOMAIN
 from .entity import SmarterEntity

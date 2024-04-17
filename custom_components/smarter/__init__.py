@@ -1,19 +1,18 @@
 """The Smarter Kettle and Coffee integration."""
-
 from __future__ import annotations
 
 import itertools
 
-from smarter_client.domain.models import Network, User
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
+from homeassistant.core import HomeAssistant
+from smarter_client.domain.models import User
 from smarter_client.domain.smarter_client import SmarterClient
 from smarter_client.managed_devices import load_from_network
 from smarter_client.managed_devices.base import BaseDevice
 
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
-from homeassistant.core import HomeAssistant
-
-from .const import DOMAIN, LOGGER
+from .const import DOMAIN
+from .const import LOGGER
 
 # TODO List the platforms that you want to support.
 # For your initial PR, limit it to 1 platform.

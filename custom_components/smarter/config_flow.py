@@ -1,23 +1,21 @@
 """Config flow for Smarter Kettle and Coffee integration."""
-
 from __future__ import annotations
 
-import itertools
 import logging
 from typing import Any
 
-from smarter_client.domain import LoginSession
-from smarter_client.domain.smarter_client import SmarterClient
-from smarter_client.managed_devices import load_from_network
 import voluptuous as vol
-
-from homeassistant.auth.models import User
-from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
-from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.config_entries import ConfigFlow
+from homeassistant.config_entries import ConfigFlowResult
+from homeassistant.const import CONF_PASSWORD
+from homeassistant.const import CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
+from smarter_client.domain import LoginSession
+from smarter_client.domain.smarter_client import SmarterClient
 
-from .const import CONF_REFRESH_TOKEN, DOMAIN
+from .const import CONF_REFRESH_TOKEN
+from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 

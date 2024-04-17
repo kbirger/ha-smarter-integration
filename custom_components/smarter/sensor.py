@@ -1,17 +1,15 @@
 """Support for Smarter sensors."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass
 
-from homeassistant.components.sensor import (
-    SensorDeviceClass,
-    SensorEntity,
-    SensorEntityDescription,
-    SensorStateClass,
-)
+from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorEntityDescription
+from homeassistant.components.sensor import SensorStateClass
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import PERCENTAGE, UnitOfTemperature
+from homeassistant.const import PERCENTAGE
+from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -100,21 +98,3 @@ class SmarterSensor(SmarterEntity, SensorEntity):
     def native_value(self):
         """Return the state of the sensor."""
         return self.device.status.get(self.entity_description.key)
-
-    # async def async_update(self) -> None:
-    #     """Get the latest state of the sensor."""
-    #     await self.data.update()
-    #     for sensor in self.data.ecobee.get_remote_sensors(self.index):
-    #         if sensor["name"] != self.sensor_name:
-    #             continue
-    #         for item in sensor["capability"]:
-    #             if item["type"] != self.entity_description.key:
-    #                 continue
-    #             if self.entity_description.runtime_key is None:
-    #                 self._state = item["value"]
-    #             else:
-    #                 thermostat = self.data.ecobee.get_thermostat(self.index)
-    #                 self._state = thermostat["runtime"][
-    #                     self.entity_description.runtime_key
-    #                 ]
-    #             break

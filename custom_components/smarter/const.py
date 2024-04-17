@@ -1,5 +1,4 @@
 """Constants for the Smarter Kettle and Coffee integration."""
-
 import logging
 
 DOMAIN = "smarter"

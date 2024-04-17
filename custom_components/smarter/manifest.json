@@ -9,7 +9,9 @@
   "iot_class": "cloud_push",
   "loggers": ["smarter"],
   "issue_tracker": "https://github.com/kbirger/ha-smarter-integration/issues",
-  "requirements": ["smarter-client==0.1.9"],
+  "requirements": [
+    "smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.11-dev.tar.gz"
+  ],
   "ssdp": [],
   "zeroconf": []
 }

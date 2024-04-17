@@ -1,12 +1,14 @@
 """Smarter base entity definitions."""
-
-from smarter_client.managed_devices.base import BaseDevice
-
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.entity import Entity, EntityDescription
+from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.entity import EntityDescription
+from smarter_client.managed_devices.base import BaseDevice
 
-from .const import DOMAIN, LOGGER, MANUFACTURER
+from .const import DOMAIN
+from .const import MANUFACTURER
+
+# from .const import LOGGER
 
 
 class SmarterEntity(Entity):
@@ -75,3 +77,11 @@ class SmarterEntity(Entity):
     def available(self) -> bool:
         """Return true if device is available."""
         return self.device is not None
+
+    @property
+    def extra_state_attributes(self):
+        return {
+            "device_id": self.device.device.identifier,
+            "kettle_is_present": self.device.status.get("kettle_is_present"),
+            "calibrated": self.device.status.get("calibrated"),
+        }

@@ -39,7 +39,9 @@ FOREGROUND_COLORS = {
 
 def _call_subprocess(args: list[str]) -> int:
     try:
-        return subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=True).returncode
+        return subprocess.run(
+            args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=True
+        ).returncode
     except subprocess.CalledProcessError as e:
         print(f"An error occurred when executing {args}:", file=sys.stderr)
         print(e.output.decode("utf-8"), file=sys.stderr)
@@ -108,10 +110,14 @@ if WINDOWS:
         value = os.path.normcase(target)
 
         with winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER) as root:
-            with winreg.OpenKey(root, "Environment", 0, winreg.KEY_ALL_ACCESS) as env_key:
+            with winreg.OpenKey(
+                root, "Environment", 0, winreg.KEY_ALL_ACCESS
+            ) as env_key:
                 try:
                     old_value, type_ = winreg.QueryValueEx(env_key, "PATH")
-                    paths = [os.path.normcase(item) for item in old_value.split(os.pathsep)]
+                    paths = [
+                        os.path.normcase(item) for item in old_value.split(os.pathsep)
+                    ]
                     if value not in paths:
                         return
 
@@ -126,10 +132,14 @@ def _add_to_path(target: Path) -> None:
 
     if WINDOWS:
         with winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER) as root:
-            with winreg.OpenKey(root, "Environment", 0, winreg.KEY_ALL_ACCESS) as env_key:
+            with winreg.OpenKey(
+                root, "Environment", 0, winreg.KEY_ALL_ACCESS
+            ) as env_key:
                 try:
                     old_value, type_ = winreg.QueryValueEx(env_key, "PATH")
-                    if value in [os.path.normcase(item) for item in old_value.split(os.pathsep)]:
+                    if value in [
+                        os.path.normcase(item) for item in old_value.split(os.pathsep)
+                    ]:
                         return
                 except FileNotFoundError:
                     old_value, type_ = "", winreg.REG_EXPAND_SZ
@@ -216,7 +226,9 @@ class Installer:
             return tuple(parts)
 
         installable_versions = {
-            k for k, v in metadata["releases"].items() if version_okay(k) and not v[0].get("yanked")
+            k
+            for k, v in metadata["releases"].items()
+            if version_okay(k) and not v[0].get("yanked")
         }
         releases = sorted(installable_versions, key=sort_version, reverse=True)
 
@@ -262,7 +274,9 @@ class Installer:
                 with TemporaryDirectory(prefix="pdm-installer-") as tempdir:
                     virtualenv_zip = Path(tempdir) / "virtualenv.pyz"
                     urllib.request.urlretrieve(url, virtualenv_zip)
-                    _call_subprocess([sys.executable, str(virtualenv_zip), str(venv_path)])
+                    _call_subprocess(
+                        [sys.executable, str(virtualenv_zip), str(venv_path)]
+                    )
             else:
                 virtualenv.cli_run([str(venv_path)])
 
@@ -436,7 +450,9 @@ def main():
         help="Do not add binary to the PATH.",
         default=os.getenv("PDM_SKIP_ADD_TO_PATH"),
     )
-    parser.add_argument("-o", "--output", help="Output file to write the installation info to")
+    parser.add_argument(
+        "-o", "--output", help="Output file to write the installation info to"
+    )
 
     options = parser.parse_args()
     installer = Installer(
