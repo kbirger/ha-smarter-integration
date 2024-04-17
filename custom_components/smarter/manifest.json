@@ -1,5 +1,4 @@
 {
-  "version": "0.1.0",
   "domain": "smarter",
   "name": "Smarter Kettle and Coffee",
   "codeowners": ["@kbirger"],
@@ -8,11 +7,12 @@
   "documentation": "https://www.github.com/kbirger/ha-smarter-integration",
   "homekit": {},
   "iot_class": "cloud_push",
-  "loggers": ["smarter"],
   "issue_tracker": "https://github.com/kbirger/ha-smarter-integration/issues",
+  "loggers": ["smarter"],
   "requirements": [
     "smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.11-dev.tar.gz"
   ],
   "ssdp": [],
+  "version": "0.1.0",
   "zeroconf": []
 }
