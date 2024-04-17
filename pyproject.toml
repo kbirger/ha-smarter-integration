@@ -1,11 +1,11 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.1.0"
+version = "0.1.1"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 dependencies = [
     "homeassistant>=2024.4.3",
-    "smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.13-dev.tar.gz",
+    "smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.14-dev.tar.gz",
 ]
 requires-python = "~=3.12.2"
 readme = "README.md"

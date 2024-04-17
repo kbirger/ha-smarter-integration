@@ -1,2 +1,2 @@
 homeassistant>=2024.4.3
-smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.13-dev.tar.gz
+smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.14-dev.tar.gz
