@@ -13,6 +13,6 @@
     "smarter-client @ https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.11-dev.tar.gz"
   ],
   "ssdp": [],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "zeroconf": []
 }
