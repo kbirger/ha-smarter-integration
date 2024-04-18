@@ -10,6 +10,8 @@ jobs:
   labeler:
     name: Labeler
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2.3.4
