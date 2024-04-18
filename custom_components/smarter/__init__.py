@@ -1,4 +1,5 @@
 """The Smarter Kettle and Coffee integration."""
+
 from __future__ import annotations
 
 import itertools
@@ -11,8 +12,7 @@ from smarter_client.domain.smarter_client import SmarterClient
 from smarter_client.managed_devices import load_from_network
 from smarter_client.managed_devices.base import BaseDevice
 
-from .const import DOMAIN
-from .const import LOGGER
+from .const import DOMAIN, LOGGER
 
 # TODO List the platforms that you want to support.
 # For your initial PR, limit it to 1 platform.

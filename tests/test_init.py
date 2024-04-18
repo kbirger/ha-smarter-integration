@@ -1,22 +1,16 @@
 """Test Smarter Kettle and Coffee integration setup process."""
+
 import pytest
-from custom_components.smarter import (
-    async_reload_entry,
-)
-from custom_components.smarter import (
-    async_setup_entry,
-)
-from custom_components.smarter import (
-    async_unload_entry,
-)
-from custom_components.smarter import (
-    SmarterDataUpdateCoordinator,
-)
-from custom_components.smarter.const import (
-    DOMAIN,
-)
 from homeassistant.exceptions import ConfigEntryNotReady
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+
+from custom_components.smarter import (
+    SmarterDataUpdateCoordinator,
+    async_reload_entry,
+    async_setup_entry,
+    async_unload_entry,
+)
+from custom_components.smarter.const import DOMAIN
 
 from .const import MOCK_CONFIG
 
@@ -36,15 +30,15 @@ async def test_setup_unload_and_reload_entry(hass, bypass_get_data):
     # call, no code from custom_components/smarter/api.py actually runs.
     assert await async_setup_entry(hass, config_entry)
     assert DOMAIN in hass.data and config_entry.entry_id in hass.data[DOMAIN]
-    assert (
-        type(hass.data[DOMAIN][config_entry.entry_id]) == SmarterDataUpdateCoordinator
+    assert isinstance(
+        hass.data[DOMAIN][config_entry.entry_id], SmarterDataUpdateCoordinator
     )
 
     # Reload the entry and assert that the data from above is still there
     assert await async_reload_entry(hass, config_entry) is None
     assert DOMAIN in hass.data and config_entry.entry_id in hass.data[DOMAIN]
-    assert (
-        type(hass.data[DOMAIN][config_entry.entry_id]) == SmarterDataUpdateCoordinator
+    assert isinstance(
+        hass.data[DOMAIN][config_entry.entry_id], SmarterDataUpdateCoordinator
     )
 
     # Unload the entry and verify that the data has been removed

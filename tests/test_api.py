@@ -1,11 +1,11 @@
 """Tests for Smarter Kettle and Coffee integration api."""
+
 import asyncio
 
 import aiohttp
-from custom_components.smarter.api import (
-    SmarterApiClient,
-)
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+
+from custom_components.smarter.api import SmarterApiClient
 
 
 async def test_api(hass, aioclient_mock, caplog):

@@ -1,4 +1,5 @@
 """Global fixtures for Smarter Kettle and Coffee integration integration."""
+
 from unittest.mock import patch
 
 import pytest

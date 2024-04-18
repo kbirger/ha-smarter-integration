@@ -1,12 +1,11 @@
 """Smarter base entity definitions."""
+
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.entity import EntityDescription
+from homeassistant.helpers.entity import Entity, EntityDescription
 from smarter_client.managed_devices.base import BaseDevice
 
-from .const import DOMAIN
-from .const import MANUFACTURER
+from .const import DOMAIN, MANUFACTURER
 
 # from .const import LOGGER
 

@@ -5,7 +5,7 @@
 groups = ["default", "testing"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:4d19308a8573c737f6048ee29c760f10e7bc7cb01ecb1fafcc1e19e1400768cf"
+content_hash = "sha256:f39f0219fa387b32b8b95b3124b89619ffc8ae8e58483b2531abc5035263d222"
 
 [[package]]
 name = "acme"
@@ -1091,7 +1091,7 @@ name = "isort"
 version = "5.13.2"
 requires_python = ">=3.8.0"
 summary = "A Python utility / library to sort Python imports."
-groups = ["default"]
+groups = ["default", "testing"]
 files = [
     {file = "isort-5.13.2-py3-none-any.whl", hash = "sha256:8ca5e72a8d85860d5a3fa69b8745237f2939afe12dbf656afbcb47fe72d947a6"},
     {file = "isort-5.13.2.tar.gz", hash = "sha256:48fdfcb9face5d58a4f6dde2e72a1fb8dcaf8ab26f95ab49fab84c2ddefb0109"},

@@ -2,6 +2,7 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
   },
+  "pylint.lintOnChange": true,
   "editor.formatOnSave": true,
   "python.defaultInterpreterPath": ".venv/Scripts/python",
   "files.insertFinalNewline": true,

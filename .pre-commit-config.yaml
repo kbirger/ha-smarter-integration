@@ -20,13 +20,10 @@ repos:
         language: system
         types: [python]
         require_serial: true
-      - id: reorder-python-imports
-        name: Reorder python imports
-        entry: reorder-python-imports
-        language: system
+      - id: isort
+        name: isort
+        entry: isort
+        language: python
+        additional_dependencies: [isort]
         types: [python]
-        args: [--application-directories=custom_components]
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.2.1
-    hooks:
-      - id: prettier
+        args: [--profile black, custom_components/]
