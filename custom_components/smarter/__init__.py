@@ -5,23 +5,13 @@ from __future__ import annotations
 import itertools
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from smarter_client.domain.models import User
 from smarter_client.domain.smarter_client import SmarterClient
 from smarter_client.managed_devices import load_from_network
 from smarter_client.managed_devices.base import BaseDevice
 
-from .const import DOMAIN, LOGGER
-
-# TODO List the platforms that you want to support.
-# For your initial PR, limit it to 1 platform.
-PLATFORMS: list[Platform] = [
-    Platform.BINARY_SENSOR,
-    Platform.NUMBER,
-    Platform.SENSOR,
-    Platform.SWITCH,
-]
+from .const import DOMAIN, LOGGER, PLATFORMS
 
 
 async def async_discover_devices(hass: HomeAssistant, user: User) -> list[BaseDevice]:

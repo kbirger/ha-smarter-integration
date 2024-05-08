@@ -1,20 +1,24 @@
 """Test Smarter Kettle and Coffee integration config flow."""
 
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from homeassistant import config_entries, data_entry_flow
+from homeassistant.const import Platform
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.smarter.const import (
-    BINARY_SENSOR,
-    DOMAIN,
-    PLATFORMS,
-    SENSOR,
-    SWITCH,
-)
+from custom_components.smarter.const import DOMAIN, PLATFORMS
 
 from .const import MOCK_CONFIG
+
+
+# from custom_components.smarter.const import (
+#     DOMAIN,
+#     PLATFORMS,
+# )
+@patch("smarter_client.domain.smarter_client.SmarterClient")
+def mock_client():
+    return MagicMock()
 
 
 # This fixture bypasses the actual setup of the integration
@@ -32,6 +36,10 @@ def bypass_setup_fixture():
             "custom_components.smarter.async_setup_entry",
             return_value=True,
         ),
+        patch(
+            "custom_components.smarter.async_unload_entry",
+            return_value=True,
+        ),
     ):
         yield
 
@@ -43,7 +51,7 @@ async def test_successful_config_flow(hass, bypass_get_data):
     """Test a successful config flow."""
     # Initialize a config flow
     result = await hass.config_entries.flow.async_init(
-        DOMAIN, context={"source": config_entries.SOURCE_USER}
+        "smarter", context={"source": config_entries.SOURCE_USER}
     )
 
     # Check that the config flow shows the user form as the first step
@@ -105,7 +113,7 @@ async def test_options_flow(hass):
     # Enter some fake data into the form
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
-        user_input={platform: platform != SENSOR for platform in PLATFORMS},
+        user_input={platform: platform != Platform.SENSOR for platform in PLATFORMS},
     )
 
     # Verify that the flow finishes
@@ -113,4 +121,8 @@ async def test_options_flow(hass):
     assert result["title"] == "test_username"
 
     # Verify that the options were updated
-    assert entry.options == {BINARY_SENSOR: True, SENSOR: False, SWITCH: True}
+    assert entry.options == {
+        Platform.BINARY_SENSOR: True,
+        Platform.SENSOR: False,
+        Platform.SWITCH: True,
+    }

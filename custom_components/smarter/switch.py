@@ -47,6 +47,7 @@ SWITCH_TYPES = [
         name="Boiling",
         get_fn=make_check_status("state", "Boiling"),
         set_fn=set_boil,
+        icon="mdi:kettle-steam",
     ),
 ]
 
