@@ -10,7 +10,7 @@
   "issue_tracker": "https://github.com/kbirger/ha-smarter-integration/issues",
   "loggers": ["smarter"],
   "requirements": [
-    "smarter-client@0.2.0"
+    "smarter-client==0.2.0"
   ],
   "ssdp": [],
   "version": "0.1.3",

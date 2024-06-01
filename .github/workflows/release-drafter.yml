@@ -4,10 +4,18 @@ on:
     branches:
       - main
       - master
+permissions:
+  contents: read
 jobs:
   draft_release:
     name: Release Drafter
     runs-on: ubuntu-latest
+    permissions:
+      # write permission is required to create a github release
+      contents: write
+      # write permission is required for autolabeler
+      # otherwise, read permission is required at least
+      pull-requests: write
     steps:
       - name: Run release-drafter
         uses: release-drafter/release-drafter@v5.13.0
