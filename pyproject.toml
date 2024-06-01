@@ -11,13 +11,13 @@ license = { text = "MIT" }
 
 [project.optional-dependencies]
 testing = [
-    "pytest-homeassistant-custom-component==0.13.122",
+    "pytest-homeassistant-custom-component==0.13.128",
     "isort==5.13.2",
     "pre-commit>=3.7.0",
     "black>=24.4.2",
     "reorder-python-imports>=3.12.0",
     "flake8>=7.0.0",
-    "pytest==8.1.1",
+    "pytest>=8.1.1",
 ]
 [tool.pdm]
 distribution = false
