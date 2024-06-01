@@ -1,13 +1,9 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.1.2"
+version = "0.1.3"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
-dependencies = [
-    "smarter-client@https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.14-dev.tar.gz",
-    "homeassistant>=2024.4.3",
-    "pytest-homeassistant-custom-component==0.13.122",
-]
+dependencies = ["smarter-client==0.2.0", "homeassistant>=2024.4.3"]
 requires-python = "~=3.12.2"
 readme = "README.md"
 license = { text = "MIT" }
@@ -15,6 +11,7 @@ license = { text = "MIT" }
 
 [project.optional-dependencies]
 testing = [
+    "pytest-homeassistant-custom-component==0.13.122",
     "isort==5.13.2",
     "pre-commit>=3.7.0",
     "black>=24.4.2",

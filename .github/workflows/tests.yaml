@@ -26,14 +26,16 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
 
-      - name: Upgrade pip
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
-          pip --version
+      - uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON }}
+          cache: true
+          allow-python-prereleases: true
 
-      - name: Install Python modules
+      - name: Install dependencies
         run: |
-          pip install --constraint=.github/workflows/constraints.txt pre-commit black flake8 reorder-python-imports
+          pdm venv create --with-pip --force $PYTHON
+          pdm install -G testing
 
       - name: Run pre-commit on all files
         run: |
