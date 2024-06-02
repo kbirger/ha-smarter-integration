@@ -7,8 +7,9 @@ on:
       - master
       - dev
   pull_request:
-  schedule:
-    - cron: "0 0 * * *"
+  #schedule:
+  #  - cron: "0 0 * * *"
+  workflow_dispatch:
 
 env:
   DEFAULT_PYTHON: 3.12
@@ -26,18 +27,20 @@ jobs:
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
 
-      - name: Upgrade pip
-        run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
-          pip --version
+      - uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON }}
+          cache: true
+          allow-python-prereleases: true
 
-      - name: Install Python modules
+      - name: Install dependencies
         run: |
-          pip install --constraint=.github/workflows/constraints.txt pre-commit black flake8 reorder-python-imports
+          pdm venv create --with-pip --force $PYTHON
+          pdm install -G testing
 
       - name: Run pre-commit on all files
         run: |
-          pre-commit run --all-files --show-diff-on-failure --color=always
+          pdm run pre-commit run --all-files --show-diff-on-failure --color=always
 
   hacs:
     runs-on: "ubuntu-latest"
@@ -71,13 +74,19 @@ jobs:
         uses: "actions/setup-python@v2.2.1"
         with:
           python-version: ${{ env.DEFAULT_PYTHON }}
-      - name: Install requirements
+      - uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: ${{ env.DEFAULT_PYTHON }}
+          cache: true
+          allow-python-prereleases: true
+
+      - name: Install dependencies
         run: |
-          pip install --constraint=.github/workflows/constraints.txt pip
-          pip install -r requirements_test.txt
+          pdm venv create --with-pip --force $PYTHON
+          pdm install -G testing
       - name: Tests suite
         run: |
-          pytest \
+          pdm run pytest \
             --timeout=9 \
             --durations=10 \
             -n auto \
