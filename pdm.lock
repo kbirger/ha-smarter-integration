@@ -5,7 +5,7 @@
 groups = ["default", "testing"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:f39f0219fa387b32b8b95b3124b89619ffc8ae8e58483b2531abc5035263d222"
+content_hash = "sha256:9a4d1666e35279c6f9bb7fcdd4db4b9929e6a9fee3da6a82fd407fb6937cd9cd"
 
 [[package]]
 name = "acme"
@@ -1779,8 +1779,7 @@ files = [
 
 [[package]]
 name = "pyrebase4"
-version = "4.7.1"
-url = "https://github.com/somechazzy/Pyrebase4/tarball/eb2d02578e63925bf2b421f3bfa7449364f84695"
+version = "4.8.0"
 summary = "A simple python wrapper for the Firebase API with current deps"
 groups = ["default"]
 dependencies = [
@@ -1793,7 +1792,8 @@ dependencies = [
     "urllib3<2,>=1.21.1",
 ]
 files = [
-    {file = "eb2d02578e63925bf2b421f3bfa7449364f84695", hash = "sha256:69546e0407b4e555be5ebf7d500abf8a890ec091dc7256afabda0ee69c3bc407"},
+    {file = "Pyrebase4-4.8.0-py3-none-any.whl", hash = "sha256:7352256f0f60e19adb018f1da87923182050c687c82a85460df3e05121d5eff2"},
+    {file = "pyrebase4-4.8.0.tar.gz", hash = "sha256:e749c791c7a44a123f246502f29d672a4ef688eb1cbfcd97c5ceca8afcdd72df"},
 ]
 
 [[package]]
@@ -2273,20 +2273,20 @@ files = [
 
 [[package]]
 name = "smarter-client"
-version = "0.1.14.dev0"
+version = "0.2.0"
 requires_python = ">=3.12.2"
-url = "https://github.com/kbirger/smarter-kettle-client/archive/refs/tags/v0.1.14-dev.tar.gz"
 summary = "Smarter Kettle client library"
 groups = ["default"]
 dependencies = [
     "aiohttp~=3.9",
     "astroid~=3.1",
     "pylint~=3.1",
-    "pyrebase4 @ https://github.com/somechazzy/Pyrebase4/tarball/eb2d02578e63925bf2b421f3bfa7449364f84695",
+    "pyrebase4>=4.8.0",
     "setuptools>=69.5.1",
 ]
 files = [
-    {file = "v0.1.14-dev.tar.gz", hash = "sha256:226efe5e00d8a55c59717c3a54d88c298e9887eb433522978a2540edd861905b"},
+    {file = "smarter_client-0.2.0-py3-none-any.whl", hash = "sha256:d8499fc5c6b19b5fddff12e65daf04300f5317db6f85e99386702f20d27346ab"},
+    {file = "smarter_client-0.2.0.tar.gz", hash = "sha256:f591804f53e228bdc8e59da95e0e2f4f5cce3ef87de901beb329dc4500da92d5"},
 ]
 
 [[package]]
