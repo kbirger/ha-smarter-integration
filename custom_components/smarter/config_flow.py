@@ -10,8 +10,8 @@ from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
-from smarter_client.domain import LoginSession
-from smarter_client.domain.smarter_client import SmarterClient
+
+from custom_components.smarter.smarter_hub import SmarterHub
 
 from .const import CONF_REFRESH_TOKEN, DOMAIN
 
@@ -27,62 +27,31 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-class SmarterHub:
-    """Placeholder class to make tests pass.
-
-    TODO Remove this placeholder class and replace with things from your PyPI package.
-    """
-
-    session: LoginSession = None
-
-    def __init__(self) -> None:
-        """Initialize."""
-
-    def authenticate(self, username: str, password: str) -> bool:
-        """Test if we can authenticate with the host."""
-        client = SmarterClient()
-        try:
-            self.session = client.sign_in(username, password)
-            return self.session is not None  # noqa: TRY300
-        except:  # noqa: E722
-            return False
-
-
 async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str, Any]:
     """Validate the user input allows us to connect.
 
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
-    # TODO validate the data can be used to set up a connection.
+    hub = SmarterHub(hass)
 
-    # If your PyPI package is not built with async, pass your methods
-    # to the executor:
-    # await hass.async_add_executor_job(
-    #     your_validate_func, data[CONF_USERNAME], data[CONF_PASSWORD]
-    # )
+    session = None
+    try:
+        session = await hub.sign_in(data[CONF_USERNAME], data[CONF_PASSWORD])
+    except Exception:  # todo: catch specific error
+        raise CannotConnect
 
-    hub = SmarterHub()
-
-    if not await hass.async_add_executor_job(
-        hub.authenticate, data[CONF_USERNAME], data[CONF_PASSWORD]
-    ):
+    if session is None:
         raise InvalidAuth
-
-    # If you cannot connect:
-    # throw CannotConnect
-    # If the authentication is wrong:
-    # InvalidAuth
 
     # Return info that you want to store in the config entry.
     return {
-        "title": "Smarter Kettle and Coffee",
         CONF_USERNAME: data[CONF_USERNAME],
         CONF_PASSWORD: data[CONF_PASSWORD],
-        CONF_REFRESH_TOKEN: hub.session.refresh_token,
+        CONF_REFRESH_TOKEN: session.refresh_token,
     }
 
 
-class ConfigFlow(ConfigFlow, domain=DOMAIN):
+class SmarterConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Smarter Kettle and Coffee."""
 
     VERSION = 1
@@ -103,7 +72,9 @@ class ConfigFlow(ConfigFlow, domain=DOMAIN):
                 _LOGGER.exception("Unexpected exception")
                 errors["base"] = "unknown"
             else:
-                return self.async_create_entry(title=info["title"], data=info)
+                return self.async_create_entry(
+                    title="Smarter Kettle and Coffee", data=info
+                )
 
         return self.async_show_form(
             step_id="user", data_schema=STEP_USER_DATA_SCHEMA, errors=errors

@@ -5,6 +5,10 @@
       "name": "Python: Attach Local",
       "type": "debugpy",
       "request": "attach",
+      "connect": {
+        "host": "0.0.0.0",
+        "port": 5678
+      },
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
@@ -28,10 +32,16 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${file}",
+      "args": [
+        "--allow-sockets",
+        "--allow-unix-socket",
+        "--allow-hosts",
+        "127.0.0.1"
+    ],
       "purpose": ["debug-test"],
       "console": "integratedTerminal",
       "justMyCode": false,
-      "cwd": "${workspaceFolder}/tests"
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

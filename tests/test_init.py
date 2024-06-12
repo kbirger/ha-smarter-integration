@@ -1,29 +1,35 @@
 """Test Smarter Kettle and Coffee integration setup process."""
 
-# import pytest
+import pytest
+from homeassistant.config_entries import ConfigEntryState
+from homeassistant.core import HomeAssistant
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-# from homeassistant.exceptions import ConfigEntryNotReady
-# from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-# from custom_components.smarter import (
-#     async_setup_entry,
-#     async_unload_entry,
-# )
-# from custom_components.smarter.const import DOMAIN
-
-# from .const import MOCK_CONFIG
+from custom_components.smarter.const import DOMAIN
 
 
-# async def test_setup_entry_exception(hass, error_on_get_data):
-#     """Test ConfigEntryNotReady when API raises an exception during entry setup."""
-#     config_entry = MockConfigEntry(domain=DOMAIN, data=MOCK_CONFIG, entry_id="test")
+@pytest.mark.parametrize("init_integration", [(True,)], indirect=True)
+@pytest.mark.parametrize("bypass_get_data", [{}], indirect=True)
+async def test_async_setup_entry(
+    hass: HomeAssistant,
+    init_integration: MockConfigEntry,
+    bypass_get_data,
+):
+    entry = init_integration
 
-#     # In this case we are testing the condition where async_setup_entry raises
-#     # ConfigEntryNotReady using the `error_on_get_data` fixture which simulates
-#     # an error.
-#     with pytest.raises(ConfigEntryNotReady):
-#         assert await async_setup_entry(hass, config_entry)
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
 
+    assert DOMAIN in hass.data and entry.entry_id in hass.data[DOMAIN]
+    assert entry.state == ConfigEntryState.LOADED
 
-def test_is_true():
-    assert 1 == 1
+    # make sure all child entries have loaded
+    assert set(
+        ["smarter", "smarter.switch", "smarter.sensor", "smarter.binary_sensor"]
+    ).issubset(hass.config.components)
+
+    # Unload
+    await hass.config_entries.async_unload(entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert entry.entry_id not in hass.data[DOMAIN]
