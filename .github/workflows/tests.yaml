@@ -32,6 +32,9 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON }}
           cache: true
           allow-python-prereleases: true
+          cache-dependency-path: |
+            ./pdm.lock
+            ./pdm.new.lock
 
       - name: Install dependencies
         run: |
@@ -79,6 +82,9 @@ jobs:
           python-version: ${{ env.DEFAULT_PYTHON }}
           cache: true
           allow-python-prereleases: true
+          cache-dependency-path: |
+            ./pdm.lock
+            ./pdm.new.lock
 
       - name: Install dependencies
         run: |

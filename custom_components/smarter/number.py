@@ -57,7 +57,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Smarter sensors."""
-    data = hass.data[DOMAIN]
+    data = hass.data[DOMAIN][config_entry.entry_id]
     entities = [
         SmarterNumber(device, description)
         for device in data.get("devices")

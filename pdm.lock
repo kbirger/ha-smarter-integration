@@ -5,7 +5,7 @@
 groups = ["default", "testing"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:d6e825c734ea9ac23322c864afffdbc1862a1195c9ab55703c33f9fb5151a629"
+content_hash = "sha256:049d0684c50fb2f45c0edd3205d0a1bb0b2b8100213fbd58f7cb3c77482d4699"
 
 [[package]]
 name = "acme"

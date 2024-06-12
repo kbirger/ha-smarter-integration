@@ -80,7 +80,7 @@ class SmarterEntity(Entity):
     @property
     def extra_state_attributes(self):
         return {
-            "device_id": self.device.device.identifier,
+            "device_id": self.device.id,
             "kettle_is_present": self.device.status.get("kettle_is_present"),
             "calibrated": self.device.status.get("calibrated"),
         }

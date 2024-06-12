@@ -34,6 +34,7 @@ SENSOR_TYPES: tuple[SmarterSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
         runtime_key=None,
+        icon="mdi:thermometer",
     ),
     SmarterSensorEntityDescription(
         key="boil_temperature",
@@ -43,25 +44,28 @@ SENSOR_TYPES: tuple[SmarterSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
         runtime_key=None,
+        icon="mdi:thermometer",
     ),
     SmarterSensorEntityDescription(
         key="target_temperature",
         name="Target Temperature",
-        # native_unit_of_measurement=PERCENTAGE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
         runtime_key=None,
+        icon="mdi:thermometer",
     ),
     SmarterSensorEntityDescription(
         key="state",
         runtime_key=None,
         name="State",
+        icon="mdi:kettle",
     ),
     SmarterSensorEntityDescription(
         key="kettle_is_present",
         runtime_key=None,
         name="Kettle is Present",
+        icon="mdi:kettle",
     ),
     SmarterSensorEntityDescription(
         key="water_level",
@@ -69,6 +73,7 @@ SENSOR_TYPES: tuple[SmarterSensorEntityDescription, ...] = (
         name="Water Level",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:cup-water",
     ),
 )
 
@@ -79,7 +84,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Smarter sensors."""
-    data = hass.data[DOMAIN]
+    data = hass.data[DOMAIN][config_entry.entry_id]
     entities = [
         SmarterSensor(device, description)
         for device in data.get("devices")
