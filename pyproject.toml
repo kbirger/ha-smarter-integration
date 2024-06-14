@@ -1,6 +1,6 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.1.3"
+version = "0.1.4"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 dependencies = ["smarter-client==0.2.0", "homeassistant>=2024.6.0b4"]

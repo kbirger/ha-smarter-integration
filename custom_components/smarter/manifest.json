@@ -1,18 +1,22 @@
 {
   "domain": "smarter",
   "name": "Smarter Kettle and Coffee",
-  "codeowners": ["@kbirger"],
+  "codeowners": [
+    "@kbirger"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://www.github.com/kbirger/ha-smarter-integration",
   "homekit": {},
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/kbirger/ha-smarter-integration/issues",
-  "loggers": ["smarter"],
+  "loggers": [
+    "smarter"
+  ],
   "requirements": [
     "smarter-client==0.2.0"
   ],
   "ssdp": [],
-  "version": "0.1.3",
+  "version": "0.1.4",
   "zeroconf": []
 }
