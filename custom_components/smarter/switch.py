@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, List
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
@@ -16,11 +16,11 @@ from .const import DOMAIN
 from .entity import SmarterEntity
 
 
-def make_check_status(key: str, value: Any) -> bool:
+def make_check_status(key: str, values: List[Any]) -> bool:
     """Return a function that checks the status of a device."""
 
     def _check_status(device: BaseDevice) -> bool:
-        return device.device.status.get(key) == value
+        return device.device.status.get(key) in values
 
     return _check_status
 
@@ -45,7 +45,7 @@ SWITCH_TYPES = [
     SmarterSwitchEntityDescription(
         key="start_boil",
         name="Boiling",
-        get_fn=make_check_status("state", "Boiling"),
+        get_fn=make_check_status("state", ["Boiling", "Keeping Warm", "Cooling"]),
         set_fn=set_boil,
         icon="mdi:kettle-steam",
     ),
