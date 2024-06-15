@@ -16,20 +16,20 @@ Note: At the moment, this integration supports only Smarter Kettle V3, as that i
 **This component will set up the following entities.**
 
 
-| Platform        | Entity             | Description                                                                          |
-| --------------- | ------------------ | ------------------------------------------------------------------------------------ |
-| `binary_sensor` | Boiling            | `On` if kettle is currently heating water                                            |
-| `binary_sensor` | Cooling            | `On` if kettle has warmed water and is allowing it to cool, such as for formula mode |
-| `binary_sensor` | Keeping Warm       | `On` if kettle has warmed water and will keep it warm                                |
-| `sensor`        | Water Temperature  | Current temperature of water                                                         |
-| `sensor`        | Boil Temperature   | Temperature for the next "boil" command                                              |
-| `sensor`        | Target Temperature | Current target temperature <sup>1</sup>                                              |
-| `sensor`        | State              | Current state of Kettle as reported by the API                                       |
-| `sensor`        | Kettle is Present  | Whether the kettle is on the base                                                    |
-| `sensor`        | Water Level        | Current water level <sup>2</sup>                                                     |
-| `switch`        | Boiling            | Set `On` to boil to target temperature. Set `Off` to turn off boiling / keep-warm    |
-| `number`        | Boil Temperature   | Same as the sensor, but allows setting                                               |
-| `number`        | Keep Warm Time     | Allows you to set the time for which kettle will continue to heat water              |
+| Platform        | Entity             | Description                                                                                                                         |
+| --------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `binary_sensor` | Boiling            | `On` if kettle is currently heating water                                                                                           |
+| `binary_sensor` | Cooling            | `On` if kettle has warmed water and is allowing it to cool, such as for formula mode                                                |
+| `binary_sensor` | Keeping Warm       | `On` if kettle has warmed water and will keep it warm                                                                               |
+| `sensor`        | Water Temperature  | Current temperature of water                                                                                                        |
+| `sensor`        | Boil Temperature   | Temperature for the next "boil" command                                                                                             |
+| `sensor`        | Target Temperature | Current target temperature <sup>1</sup>                                                                                             |
+| `sensor`        | State              | Current state of Kettle as reported by the API                                                                                      |
+| `sensor`        | Kettle is Present  | Whether the kettle is on the base                                                                                                   |
+| `sensor`        | Water Level        | Current water level <sup>2</sup>                                                                                                    |
+| `switch`        | Boiling            | Set `On` to boil to target temperature. Set `Off` to turn off boiling / keep-warm. State will remain `On` while keep-warm is active |
+| `number`        | Boil Temperature   | Same as the sensor, but allows setting                                                                                              |
+| `number`        | Keep Warm Time     | Allows you to set the time for which kettle will continue to heat water                                                             |
 
 
 Notes:
