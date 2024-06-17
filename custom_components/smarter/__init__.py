@@ -12,7 +12,6 @@ from .const import DOMAIN, LOGGER, PLATFORMS
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Smarter Kettle and Coffee from a config entry."""
-
     hass.data.setdefault(DOMAIN, {})
     hub = SmarterHub(hass)
     session = await hub.sign_in(entry.data["username"], entry.data["password"])

@@ -57,12 +57,16 @@ class SmarterEntity(Entity):
     @property
     def unique_id(self):
         """Return a unique identifier for this sensor."""
-        return f"{self.device.device.identifier}-{self.device.type}-{self.device_class}-{self.entity_description.key}"
+        return "-".join(
+            self.device.device.identifier,
+            self.device.type,
+            self.device_class,
+            self.entity_description.key
+        )
 
     @property
     def device_info(self) -> DeviceInfo | None:
         """Return device information for this sensor."""
-
         return DeviceInfo(
             identifiers={(DOMAIN, self.device.device.identifier)},
             manufacturer=MANUFACTURER,
@@ -79,6 +83,7 @@ class SmarterEntity(Entity):
 
     @property
     def extra_state_attributes(self):
+        """Return extra device attributes associated with entity."""
         return {
             "device_id": self.device.id,
             "kettle_is_present": self.device.status.get("kettle_is_present"),

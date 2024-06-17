@@ -15,17 +15,15 @@ DEFAULT_NAME = "DEFAULT_NAME"
 SWITCH = "switch"
 
 
-# @pytest.mark.asyncio
-# @patch("smarter_client.domain.smarter_client.SmarterClient")
 @pytest.fixture(autouse=True)
 def patch_SmarterClient(monkeypatch):
+    """Todo."""
     pass
 
 
 @pytest.mark.skip()
 async def test_switch_services(hass, monkeypatch, patch_SmarterClient):
     """Test switch services."""
-
     monkeypatch.setattr(
         smarter_client.domain.smarter_client, "SmarterClient", MagicMock()
     )
@@ -42,8 +40,9 @@ async def test_switch_services(hass, monkeypatch, patch_SmarterClient):
     assert await async_setup_entry(hass, config_entry)
     await hass.async_block_till_done()
 
-    # Functions/objects can be patched directly in test code as well and can be used to test
-    # additional things, like whether a function was called or what arguments it was called with
+    # Functions/objects can be patched directly in test code as well and can be used to
+    # test additional things, like whether a function was called or what arguments it
+    # was called with.
     with patch("smarter_client.managed_devices.base.BaseDevice.device") as device:
         device.commands = {
             "start_boil": MagicMock(),
