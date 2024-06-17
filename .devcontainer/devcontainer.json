@@ -12,9 +12,6 @@
         "terminal.integrated.shell.linux": "/bin/bash",
         "python.pythonPath": "/usr/bin/python3",
         "python.analysis.autoSearchPaths": false,
-        "[python]": {
-          "editor.defaultFormatter": "ms-python.black-formatter"
-        },
         "pylint.lintOnChange": true,
         "editor.formatOnPaste": false,
         "editor.formatOnSave": true,
@@ -29,7 +26,8 @@
         "tamasfe.even-better-toml",
         "ms-python.vscode-pylance",
         "charliermarsh.ruff",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "github.vscode-github-actions"
       ]
     }
   },

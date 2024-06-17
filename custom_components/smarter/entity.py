@@ -61,7 +61,7 @@ class SmarterEntity(Entity):
             self.device.device.identifier,
             self.device.type,
             self.device_class,
-            self.entity_description.key
+            self.entity_description.key,
         )
 
     @property
