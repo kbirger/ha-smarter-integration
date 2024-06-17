@@ -1,0 +1,27 @@
+quick_boil:
+  target:
+    device:
+      integration: smarter
+    entity:
+      integration: smarter
+      domain: switch
+
+send_command:
+  target:
+    device:
+      integration: smarter
+
+  fields:
+    command_name:
+      example: start_boil
+      required: true
+    command_data:
+      example: 1
+      required: false
+
+get_commands:
+  target:
+    device:
+      integration: smarter
+    entity:
+      integration: smarter

@@ -19,3 +19,16 @@ PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.SWITCH,
 ]
+
+SERVICE_QUICK_BOIL = "quick_boil"
+SERVICE_SEND_COMMAND = "send_command"
+SERVICE_GET_COMMANDS = "get_commands"
+
+SERVICE_ATTR_COMMAND_NAME = "command_name"
+SERVICE_ATTR_COMMAND_DATA = "command_data"
+
+SERVICES: list[str] = [
+    SERVICE_QUICK_BOIL,
+    SERVICE_SEND_COMMAND,
+    SERVICE_QUICK_BOIL,
+]

@@ -1,5 +1,9 @@
 {
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
   "python.defaultInterpreterPath": ".venv/Scripts/python",
   "files.insertFinalNewline": true,
   "files.associations": {

@@ -1,6 +1,6 @@
 """Smarter base entity definitions."""
 
-from homeassistant.core import callback
+from homeassistant.core import ServiceCall, callback
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import Entity, EntityDescription
 from smarter_client.managed_devices.base import BaseDevice
@@ -89,3 +89,12 @@ class SmarterEntity(Entity):
             "kettle_is_present": self.device.status.get("kettle_is_present"),
             "calibrated": self.device.status.get("calibrated"),
         }
+
+    def async_quick_boil(self):
+        pass
+
+    def async_send_command(self):
+        pass
+
+    def async_get_commands(self, call: ServiceCall):
+        pass

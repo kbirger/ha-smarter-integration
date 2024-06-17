@@ -17,5 +17,19 @@
         }
       }
     }
+  },
+  "services": {
+    "quick_boil": {
+      "description": "Send the quick boil command"
+    },
+    "send_command": {
+      "fields": {
+        "command_name": "Command name",
+        "command_data": "Command data"
+      }
+    },
+    "get_commands": {
+      "description": "Get list of commands supported by the device"
+    }
   }
 }
