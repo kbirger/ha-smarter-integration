@@ -1,11 +1,10 @@
 """Test Smarter Kettle and Coffee integration setup process."""
 
 import pytest
+from custom_components.smarter.const import DOMAIN
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from custom_components.smarter.const import DOMAIN
 
 
 @pytest.mark.parametrize("init_integration", [(True,)], indirect=True)
@@ -15,6 +14,7 @@ async def test_async_setup_entry(
     init_integration: MockConfigEntry,
     bypass_get_data,
 ):
+    """Test `async_setup` when all success criteria are met."""
     entry = init_integration
 
     await hass.config_entries.async_setup(entry.entry_id)

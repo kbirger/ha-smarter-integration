@@ -1,4 +1,6 @@
 categories:
+  - title: ":broom: Chore"
+    label: "chore"
   - title: ":boom: Breaking Changes"
     label: "breaking"
   - title: ":rocket: Features"
@@ -6,7 +8,7 @@ categories:
   - title: ":fire: Removals and Deprecations"
     label: "removal"
   - title: ":beetle: Fixes"
-    label: "bug"
+    labels: ["fix", "bug"]
   - title: ":racehorse: Performance"
     label: "performance"
   - title: ":rotating_light: Testing"
@@ -16,7 +18,9 @@ categories:
   - title: ":books: Documentation"
     label: "documentation"
   - title: ":hammer: Refactoring"
-    label: "refactoring"
+    labels:
+      - "refactoring"
+      - "refactor"
   - title: ":lipstick: Style"
     label: "style"
   - title: ":package: Dependencies"
@@ -27,3 +31,25 @@ template: |
   ## Changes
 
   $CHANGES
+autolabeler:
+  - label: "bug"
+    branch:
+      - "/fix\/.+/"
+    title:
+      - "/fix/i"
+  - label: "chore"
+    title:
+      - "/chore/i"
+  - label: "dependencies"
+    title:
+      - "/dependenc(y|ies)/.*/i"
+    branch:
+      - "/dependabot.*/"
+  - label: "documentation"
+    title:
+      - "/documentation/i"
+    files:
+      - "*.md"
+  - label: "refactoring"
+    title:
+      - "/refactor(ing)?"

@@ -3,17 +3,17 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+from custom_components.smarter.const import DOMAIN, PLATFORMS
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.const import Platform
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from custom_components.smarter.const import DOMAIN, PLATFORMS
 
 from .const import MOCK_CONFIG, MOCK_SESSION
 
 
 @patch("smarter_client.domain.smarter_client.SmarterClient")
 def mock_client():
+    """Mock SmarterClient."""
     return MagicMock()
 
 
@@ -77,7 +77,6 @@ async def test_successful_config_flow(hass, bypass_get_data):
 @pytest.mark.parametrize("bypass_get_data", [{"session": None}], indirect=True)
 async def test_failed_config_flow_invalid_auth(hass, bypass_get_data):
     """Test a failed config flow due to credential validation failure."""
-
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )
@@ -95,7 +94,6 @@ async def test_failed_config_flow_invalid_auth(hass, bypass_get_data):
 
 async def test_failed_config_flow_error(hass, error_on_get_data):
     """Test a failed config flow due to credential validation failure."""
-
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )

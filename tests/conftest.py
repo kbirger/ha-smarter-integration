@@ -4,10 +4,9 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
+from custom_components.smarter.smarter_hub import SmarterHub
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from custom_components.smarter.smarter_hub import SmarterHub
 
 from .const import MOCK_CONFIG, MOCK_DEVICE, MOCK_SESSION, MOCK_USER
 
@@ -16,12 +15,13 @@ pytest_plugins = "pytest_homeassistant_custom_component"
 
 @pytest.fixture(autouse=True)
 def auto_enable_custom_integrations(enable_custom_integrations):
+    """Enable loading of custom integrations."""
     yield
 
 
-# This fixture is used to prevent HomeAssistant from attempting to create and dismiss persistent
-# notifications. These calls would fail without this fixture since the persistent_notification
-# integration is never loaded during a test.
+# This fixture is used to prevent HomeAssistant from attempting to create and dismiss
+# persistent notifications. These calls would fail without this fixture since the
+# persistent_notification integration is never loaded during a test.
 @pytest.fixture(name="skip_notifications", autouse=True)
 def skip_notifications_fixture():
     """Skip notification calls."""
@@ -32,8 +32,8 @@ def skip_notifications_fixture():
         yield
 
 
-# In this fixture, we are forcing calls to async_get_data to raise an Exception. This is useful
-# for exception handling.
+# In this fixture, we are forcing calls to async_get_data to raise an Exception. This is
+# useful for exception handling.
 @pytest.fixture(name="error_on_get_data")
 def error_get_data_fixture():
     """Simulate error when retrieving data from API."""
@@ -57,7 +57,6 @@ def error_get_data_fixture():
 @pytest.fixture
 def mock_config_entry() -> MockConfigEntry:
     """Return the default mocked config entry."""
-
     # config = getattr(request, "param", MOCK_CONFIG)
     return MockConfigEntry(
         domain="smarter",
@@ -68,13 +67,13 @@ def mock_config_entry() -> MockConfigEntry:
 
 @pytest.fixture
 def mock_session():
-    session = MagicMock(**MOCK_SESSION)
-
-    return session
+    """Return mock session object."""
+    return MagicMock(**MOCK_SESSION)
 
 
 @pytest.fixture
 def mock_network(mock_device):
+    """Return mock network object."""
     network = MagicMock()
     network.associated_devices.return_value = [mock_device]
 
@@ -83,18 +82,19 @@ def mock_network(mock_device):
 
 @pytest.fixture
 def mock_user(mock_network):
-    user = MagicMock(**MOCK_USER, networks={"1": mock_network})
-
-    return user
+    """Return mock user object."""
+    return MagicMock(**MOCK_USER, networks={"1": mock_network})
 
 
 @pytest.fixture
 def mock_device():
+    """Return mock device object."""
     return MagicMock(**MOCK_DEVICE)
 
 
-# This fixture, when used, will result in calls to async_get_data to return None. To have the call
-# return a value, we would add the `return_value=<VALUE_TO_RETURN>` parameter to the patch call.
+# This fixture, when used, will result in calls to async_get_data to return None. To
+# have the call return a value, we would add the `return_value=<VALUE_TO_RETURN>`
+# parameter to the patch call.
 @pytest.fixture(name="bypass_get_data")
 def bypass_get_data_fixture(mock_session, mock_user, mock_device, request):
     """Skip calls to get data from API."""
@@ -125,7 +125,7 @@ def bypass_get_data_fixture(mock_session, mock_user, mock_device, request):
 
 @pytest.fixture
 def mock_hub(hass, mock_session, mock_user):
-    # with patch('from smarter_client.domain.models.User'):
+    """Return a mock hub object."""
     hub = SmarterHub(hass)
     hub.client = MagicMock()
 
@@ -139,6 +139,12 @@ def mock_hub(hass, mock_session, mock_user):
 async def init_integration(
     hass: HomeAssistant, mock_config_entry: MockConfigEntry, mock_hub, request
 ):
+    """
+    Patch the SmarterHub in the integration and add ConfigEntry to hass.
+
+    Pass `skip_setup` flag as first arg in the `request` to skip caling integration
+    setup. Useful for fixtures that need to perform additonal mocking before setup.
+    """
     mock_config_entry.add_to_hass(hass)
 
     skip_setup = False
