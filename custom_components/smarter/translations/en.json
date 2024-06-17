@@ -20,15 +20,22 @@
   },
   "services": {
     "quick_boil": {
+      "name": "Quick boil",
       "description": "Send the quick boil command"
     },
     "send_command": {
+      "name": "Send command",
       "fields": {
-        "command_name": "Command name",
-        "command_data": "Command data"
+        "command_name": {
+          "name": "Command name",
+          "description": "Name of the command. Can be retrieved from \"Get commands\" service call."
+        },
+        "command_data": "Command data",
+        "description": "Optional data for the command. Can be retrieved from \"Get commands\" service call."
       }
     },
     "get_commands": {
+      "name": "Get commands",
       "description": "Get list of commands supported by the device"
     }
   }
