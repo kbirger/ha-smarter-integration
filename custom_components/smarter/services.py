@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import voluptuous as vol
 from homeassistant.const import (
     ATTR_AREA_ID,
     ATTR_DEVICE_ID,
@@ -55,9 +56,17 @@ async def async_setup_services(hass: HomeAssistant, hub: SmarterHub):
     async def handle_get_commands(call: ServiceCall):
         pass
 
-    hass.services.async_register(DOMAIN, SERVICE_QUICK_BOIL, handle_quick_boil)
-    hass.services.async_register(DOMAIN, SERVICE_SEND_COMMAND, handle_send_command)
-    hass.services.async_register(DOMAIN, SERVICE_GET_COMMANDS, handle_get_commands)
+    hass.services.async_register(DOMAIN, SERVICE_QUICK_BOIL, handle_quick_boil, {})
+    hass.services.async_register(
+        DOMAIN,
+        SERVICE_SEND_COMMAND,
+        handle_send_command,
+        {
+            vol.Required(SERVICE_ATTR_COMMAND_NAME),
+            vol.Optional(SERVICE_ATTR_COMMAND_DATA),
+        },
+    )
+    hass.services.async_register(DOMAIN, SERVICE_GET_COMMANDS, handle_get_commands, {})
 
 
 async def get_device_ids(hass: HomeAssistant, call: ServiceCall):
