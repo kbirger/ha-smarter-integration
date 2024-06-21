@@ -4,20 +4,37 @@ quick_boil:
       integration: smarter
     entity:
       integration: smarter
-      domain: switch
+      domain: sensor
 
 send_command:
   target:
     device:
       integration: smarter
+    entity:
+      integration: smarter
+      domain: sensor
 
   fields:
     command_name:
       example: start_boil
       required: true
-    command_data:
-      example: 1
+      selector:
+        text:
+    command_data_text:
+      example: Foo
       required: false
+      selector:
+        text:
+    command_data_number:
+      example: 25.0
+      required: false
+      selector:
+        number:
+    command_data_boolean:
+      example: True
+      required: false
+      selector:
+        boolean:
 
 get_commands:
   target:
@@ -25,3 +42,4 @@ get_commands:
       integration: smarter
     entity:
       integration: smarter
+      domain: sensor

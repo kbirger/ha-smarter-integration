@@ -47,6 +47,12 @@ BINARY_SENSOR_TYPES = [
         name="Keeping warm",
         get_fn=make_check_status("state", "Keeping Warm"),
     ),
+    SmarterBinarySensorEntityDescription(
+        key="kettle_is_present",
+        name="Kettle is Present",
+        icon="mdi:kettle",
+        get_fn=make_check_status("kettle_is_present", True),
+    ),
 ]
 
 

@@ -30,8 +30,18 @@
           "name": "Command name",
           "description": "Name of the command. Can be retrieved from \"Get commands\" service call."
         },
-        "command_data": "Command data",
-        "description": "Optional data for the command. Can be retrieved from \"Get commands\" service call."
+        "command_data_text": {
+          "name": "Command data (Text)",
+          "description": "Optional data for the command. Can be retrieved from \"Get commands\" service call. NOTE: the text form does not seem to be used and is included for debugging purposes only."
+        },
+        "command_data_number": {
+          "name": "Command data (Number)",
+          "description": "Optional data for the command if the command expects a number. Can be retrieved from \"Get commands\" service call."
+        },
+        "command_data_boolean": {
+          "name": "Command data (Boolean)",
+          "description": "Optional data for the command if the command expects a boolean. Can be retrieved from \"Get commands\" service call."
+        }
       }
     },
     "get_commands": {

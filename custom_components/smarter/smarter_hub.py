@@ -1,9 +1,9 @@
 """Defines module for integrating HomeAssistant with the Smarter API Client."""
 
 import itertools
+from collections.abc import Generator
 from typing import Any
 
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from smarter_client.domain.models import LoginSession, User
 from smarter_client.domain.smarter_client import SmarterClient
@@ -69,42 +69,67 @@ class SmarterHub:
 
         return await self.hass.async_add_executor_job(_discover_devices)
 
-    @property
-    def _domain_data(self) -> dict[str, Any]:
-        return self.hass.data[DOMAIN]
+    def _domain_data(self, config_entry_id: str) -> dict[str, Any]:
+        return self.hass.data[DOMAIN][config_entry_id]
 
-    @property
-    def _devices(self) -> list[BaseDevice]:
-        return self._domain_data["devices"]
+    def _get_devices(self, config_entry_id: str) -> list[BaseDevice]:
+        return self._domain_data(config_entry_id)["devices"]
 
-    def _get_device(self, external_device_id: str) -> BaseDevice:
+    def _get_device(self, external_device_id: str, config_entry_id: str) -> BaseDevice:
         try:
             return next(
-                device for device in self._devices if device.id == external_device_id
+                device
+                for device in self._get_devices(config_entry_id)
+                if device.id == external_device_id
             )
         except StopIteration:
             raise DeviceNotFoundError(external_device_id)
 
+    def get_commands(
+        self,
+        external_device_id: str,
+        config_entry_id: str,
+    ) -> Generator[tuple[str, str]]:
+        """
+        Retrieve a list of commands supported by the specified device.
+
+        Args:
+            external_device_id: Device ID in Smarter API
+            config_entry_id: HASS config entry ID that owns the device
+        Returns:
+            Generator of tuple[str,str] where the items are:
+            [0] name of the command
+            [1] example data, as provided by Smarter API
+        """
+        device = self._get_device(external_device_id, config_entry_id)
+
+        for command in device.device.commands.values():
+            yield (command.name, command.example)
+
     async def send_command(
-        self, external_device_id: str, command_name: str, command_data: Any
+        self,
+        external_device_id: str,
+        config_entry_id: str,
+        command_name: str,
+        command_data: Any,
     ):
         """
         Send a command to the specified device.
 
         Args:
             external_device_id: Device ID in Smarter API
+            config_entry_id: HASS config entry ID that owns the device
             command_name: name of command (see `get_commands`)
             command_data: (optional) data for given command
         """
         try:
-            device = self._get_device(external_device_id)
-            device.send_command
+            device = self._get_device(external_device_id, config_entry_id)
             await self.hass.async_add_executor_job(
                 device.send_command,
                 command_name,
                 command_data,
             )
         except KeyError:
-            raise ValueError(f"Device does not support command '{command_data}'")
+            raise ValueError(f"Device does not support command '{command_name}'")
         except DeviceNotFoundError:
             return "not found"
