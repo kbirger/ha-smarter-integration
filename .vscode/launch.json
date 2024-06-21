@@ -33,15 +33,38 @@
       "request": "launch",
       "program": "${file}",
       "args": [
+        "--force-enable-socket",
         "--allow-sockets",
         "--allow-unix-socket",
         "--allow-hosts",
         "127.0.0.1"
-    ],
-      "purpose": ["debug-test"],
-      "console": "integratedTerminal",
+      ],
+      "purpose": [
+        "debug-test"
+      ],
       "justMyCode": false,
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Python: Debug Tests Manual",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "--force-enable-socket",
+        "--allow-unix-socket",
+        "--allow-hosts",
+        "127.0.0.1",
+        "${file}",
+      ],
+      "justMyCode": false,
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
     }
   ]
 }
