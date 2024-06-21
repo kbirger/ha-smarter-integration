@@ -99,6 +99,8 @@ This integration is two parts. The underlying [smarter-client library](https://w
 - Secure credential storage: Currently the extension stores username and password. I'm not happy about this, but have not had time to research something better. If you know the best way to do this, please create an Issue. One possibility is that your credentials will only be used once, to store the refresh token. This may result in needing to periodically reauthenticate, but not 100% sure.
 - Add events: honestly, this one is a maybe. Seems like a small nice to have, since entities already provide events. If anyone feels that this would be useful, please create an Issue in the tracker and state your use-case.
 - Create UI card: Maybe? Not sure if this is helpful
+- auto update new/removed devices
+- async_dispatcher_connect
 
 
 
