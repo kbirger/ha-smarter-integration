@@ -31,13 +31,11 @@ class SmarterHub:
 
     hass: HomeAssistant
     client: SmarterClient
-    entry: ConfigEntry
 
-    def __init__(self, hass: HomeAssistant, entry: ConfigEntry):
+    def __init__(self, hass: HomeAssistant):
         """Create a new instance of the SmarterHub class."""
         self.hass = hass
         self.client = SmarterClient()
-        self.entry = entry
 
     async def sign_in(self, username, password):
         """

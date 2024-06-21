@@ -5,7 +5,6 @@ from __future__ import annotations
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import Config, HomeAssistant
 
-from custom_components.smarter.services import async_setup_services
 from custom_components.smarter.smarter_hub import SmarterHub
 
 from .const import DOMAIN, LOGGER, PLATFORMS
@@ -14,7 +13,7 @@ from .const import DOMAIN, LOGGER, PLATFORMS
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Smarter Kettle and Coffee from a config entry."""
     hass.data.setdefault(DOMAIN, {})
-    hub = SmarterHub(hass, entry)
+    hub = SmarterHub(hass)
     session = await hub.sign_in(entry.data["username"], entry.data["password"])
     user = await hub.get_user(session)
 
@@ -26,7 +25,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
-    await async_setup_services(hass, hub)
+    entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     return True
 
@@ -46,5 +45,4 @@ async def async_setup(hass: HomeAssistant, config: Config):
 
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Reload config entry."""
-    await async_unload_entry(hass, entry)
-    await async_setup_entry(hass, entry)
+    await hass.config_entries.async_reload(entry.entry_id)
