@@ -1,6 +1,7 @@
 """Constants for Smarter Kettle and Coffee integration tests."""
 
 from datetime import datetime
+from unittest.mock import MagicMock
 
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 
@@ -29,11 +30,12 @@ MOCK_USER = {
 
 MOCK_DEVICE = {
     "identifier": "TEST_KETTLE1",
-    "status": {"success": True},
-    "settings": {"setting": 1},
+    "type": "kettle",
+    "status": MagicMock(**{"success": True}),
+    "settings": MagicMock(**{"setting": 1}),
     "model": "TEST_KETTLE1",
     "firmware_version": "0.0.0",
     "id": "TEST01",
     "friendly_name": "Test Kettle",
-    "device": {"identifier": "TEST_KETTLE1"},
+    "device": MagicMock(**{"identifier": "TEST_KETTLE1"}),
 }

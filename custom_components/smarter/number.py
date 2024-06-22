@@ -74,10 +74,10 @@ class SmarterNumber(SmarterEntity, NumberEntity):
     _attr_has_entity_name = True
 
     def set_native_value(self, value: float) -> None:
-        """Set new ventilator Min On Time value."""
+        """Set value."""
         self.entity_description.set_fn(self.device, int(value))
 
     @property
     def native_value(self) -> float | None:
         """Return the value reported by the number."""
-        return self.device.status.get(self.entity_description.key)
+        return float(self.device.status.get(self.entity_description.key))

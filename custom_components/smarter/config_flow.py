@@ -68,8 +68,9 @@ class SmarterConfigFlow(ConfigFlow, domain=DOMAIN):
                 errors["base"] = "cannot_connect"
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
-            except Exception:  # pylint: disable=broad-except
+            except Exception as ex:
                 _LOGGER.exception("Unexpected exception")
+                _LOGGER.exception(ex)
                 errors["base"] = "unknown"
             else:
                 return self.async_create_entry(

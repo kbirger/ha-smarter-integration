@@ -1,16 +1,26 @@
 {
   "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "ruff.nativeServer": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
   "python.defaultInterpreterPath": ".venv/Scripts/python",
   "files.insertFinalNewline": true,
   "files.associations": {
     "*.yaml": "home-assistant"
   },
-  "python.testing.pytestArgs": [
-    "tests"
-  ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
   "files.exclude": {
     "**/pdm.lock": true
-  }
-}
+  },
+  "python.testing.pytestArgs": [
+    ".",
+    "--force-enable-socket",
+    "--allow-unix-socket"
+  ]

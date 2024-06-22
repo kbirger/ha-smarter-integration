@@ -58,10 +58,11 @@ class SmarterEntity(Entity):
     def unique_id(self):
         """Return a unique identifier for this sensor."""
         return "-".join(
-            self.device.device.identifier,
-            self.device.type,
-            self.device_class,
-            self.entity_description.key,
+            (
+                self.device.device.identifier,
+                self.device.type,
+                self.entity_description.key if self.entity_description else "device",
+            )
         )
 
     @property
