@@ -85,6 +85,7 @@ This integration is two parts. The underlying [smarter-client library](https://w
 - Support starting session from refresh token
 - Event callbacks for when kettle state changes: currently, this is done implicitly by entiy state changes, but more things could be done if the library explicitly notifies of these events.
 - Calibration detection and calibrate functionality: detect when kettle needs calibration and provide interface for calling calibration
+- automatically fetch lazy-loaded entities via decorator
 
 
 ### Integration
@@ -101,6 +102,9 @@ This integration is two parts. The underlying [smarter-client library](https://w
 - Create UI card: Maybe? Not sure if this is helpful
 - auto update new/removed devices
 - async_dispatcher_connect
+- async switch / number entity support
+- translations
+- better support for turning off boil switch. Currently, sometimes when in keep-warm, and you turn the switch off, it briefly reverts to `on`. Not sure if there's a reliable way to address this, because the value is coming from the integration, and we do not simply want to ignore it, as that could lead to incorrect results. This is a minor issue.
 
 
 
