@@ -25,6 +25,7 @@
     },
     "send_command": {
       "name": "Send command",
+      "description": "Send a command to the API.",
       "fields": {
         "command_name": {
           "name": "Command name",
