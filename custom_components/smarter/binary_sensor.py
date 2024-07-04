@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any
 
 from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
@@ -13,7 +11,6 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from smarter_client.managed_devices.base import BaseDevice
 
 from .const import DOMAIN
 from .entity import SmarterEntity
@@ -23,37 +20,35 @@ from .entity import SmarterEntity
 class SmarterBinarySensorEntityDescription(BinarySensorEntityDescription):
     """Represent the Smarter sensor entity description."""
 
-    get_fn: Callable[[BaseDevice], bool]
+    get_status_field: str
+    state_on_values: tuple[str]
 
 
-def make_check_status(key: str, value: Any) -> bool:
-    """Return a function that checks the status of a device."""
-
-    def _check_status(device: BaseDevice) -> bool:
-        return device.device.status.get(key) == value
-
-    return _check_status
-
-
-# TODO: Refactor this so that instead of setting up get_fn, the status key and on values
-# are passed
 BINARY_SENSOR_TYPES = [
     SmarterBinarySensorEntityDescription(
-        key="is_boiling", name="Boiling", get_fn=make_check_status("state", "Boiling")
+        key="is_boiling",
+        name="Boiling",
+        get_status_field="state",
+        state_on_values=("Boiling",),
     ),
     SmarterBinarySensorEntityDescription(
-        key="is_cooling", name="Cooling", get_fn=make_check_status("state", "Cooling")
+        key="is_cooling",
+        name="Cooling",
+        get_status_field="state",
+        state_on_values=("Cooling",),
     ),
     SmarterBinarySensorEntityDescription(
         key="is_keep_warm",
         name="Keeping warm",
-        get_fn=make_check_status("state", "Keeping Warm"),
+        get_status_field="state",
+        state_on_values=("Keeping Warm",),
     ),
     SmarterBinarySensorEntityDescription(
         key="kettle_is_present",
         name="Kettle is Present",
         icon="mdi:kettle",
-        get_fn=make_check_status("kettle_is_present", True),
+        get_status_field="kettle_is_present",
+        state_on_values=(True,),
     ),
 ]
 
@@ -84,4 +79,8 @@ class SmarterBinarySensor(SmarterEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        return self.entity_description.get_fn(self.device)
+        description = self.entity_description
+        return (
+            self.device.status.get(description.get_status_field)
+            in description.state_on_values
+        )
