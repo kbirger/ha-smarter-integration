@@ -45,9 +45,9 @@ SERVICE_SCHEMA_SEND_COMMAND = vol.Schema(
                 # The frontend stores data here. Don't use in core.
                 vol.Remove("metadata"): dict,
                 vol.Required(SERVICE_ATTR_COMMAND_NAME): cv.string,
-                vol.Optional(SERVICE_ATTR_COMMAND_DATA_NUMBER): cv.string,
+                vol.Optional(SERVICE_ATTR_COMMAND_DATA_NUMBER): vol.Coerce(float),
                 vol.Optional(SERVICE_ATTR_COMMAND_DATA_TEXT): cv.string,
-                vol.Optional(SERVICE_ATTR_COMMAND_DATA_BOOLEAN): cv.string,
+                vol.Optional(SERVICE_ATTR_COMMAND_DATA_BOOLEAN): cv.boolean,
                 **cv.ENTITY_SERVICE_FIELDS,
             },
             extra=vol.PREVENT_EXTRA,

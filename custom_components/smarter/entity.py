@@ -71,7 +71,7 @@ class SmarterEntity(Entity):
         return DeviceInfo(
             identifiers={(DOMAIN, self.device.device.identifier)},
             manufacturer=MANUFACTURER,
-            model=self.device.status.get("device_model"),
+            model=self.device.model,
             name=self.device.friendly_name,
             suggested_area="Kitchen",
             sw_version=self.device.firmware_version,

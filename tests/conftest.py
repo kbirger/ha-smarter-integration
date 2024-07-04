@@ -8,7 +8,7 @@ from custom_components.smarter.smarter_hub import SmarterHub
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from .const import MOCK_CONFIG, MOCK_DEVICE, MOCK_SESSION, MOCK_USER
+from .const import MOCK_CONFIG, MOCK_DEVICE, MOCK_NETWORK, MOCK_SESSION, MOCK_USER
 
 pytest_plugins = "pytest_homeassistant_custom_component"
 
@@ -72,12 +72,9 @@ def mock_session():
 
 
 @pytest.fixture
-def mock_network(mock_device):
+def mock_network():
     """Return mock network object."""
-    network = MagicMock()
-    network.associated_devices.return_value = [mock_device]
-
-    return network
+    return MagicMock(**MOCK_NETWORK)
 
 
 @pytest.fixture

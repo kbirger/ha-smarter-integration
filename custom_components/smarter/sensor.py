@@ -128,12 +128,13 @@ def _register_services(hass, device_entities_map):
                 required_features=[SmarterSensorEntityFeature.SERVICE_AGENT],
             ),
             schema,
-            SupportsResponse.ONLY,
+            SupportsResponse.OPTIONAL,
             job_type=HassJobType.Coroutinefunction,
         )
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
+    """Remove services and unload sensor entry."""
     for (service_name,) in SmarterDeviceSensor.get_service_metadata():
         hass.services.async_remove(DOMAIN, service_name)
 
@@ -141,7 +142,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
 class SmarterSensor(SmarterEntity, SensorEntity):
     """Representation of a Smarter sensor."""
 
-    _attr_has_entity_name = False
+    _attr_has_entity_name = True
 
     entity_description: SmarterSensorEntityDescription
 

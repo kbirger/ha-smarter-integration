@@ -29,6 +29,9 @@ asyncio_mode = "auto"
 pythonpath = "."
 addopts = ["--allow-unix-socket"]
 
+[tool.ruff.format]
+quote-style = "double"
+
 [tool.ruff.lint]
 select = ["D", "E", "F", "W", "I", "UP", "R"]
 ignore = ["D203", "D213"]

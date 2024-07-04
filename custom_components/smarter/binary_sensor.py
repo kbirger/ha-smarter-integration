@@ -35,6 +35,8 @@ def make_check_status(key: str, value: Any) -> bool:
     return _check_status
 
 
+# TODO: Refactor this so that instead of setting up get_fn, the status key and on values
+# are passed
 BINARY_SENSOR_TYPES = [
     SmarterBinarySensorEntityDescription(
         key="is_boiling", name="Boiling", get_fn=make_check_status("state", "Boiling")
