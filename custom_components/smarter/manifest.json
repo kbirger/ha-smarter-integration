@@ -17,6 +17,6 @@
     "smarter-client==0.2.0"
   ],
   "ssdp": [],
-  "version": "0.3.0-dev.0",
+  "version": "0.3.0",
   "zeroconf": []
 }
