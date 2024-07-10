@@ -74,7 +74,7 @@ class SmarterConfigFlow(ConfigFlow, domain=DOMAIN):
                 errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
-                    title="Smarter Kettle and Coffee", data=info
+                    title=user_input.get(CONF_USERNAME), data=info
                 )
 
         return self.async_show_form(
