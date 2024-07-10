@@ -1,6 +1,6 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.2.0"
+version = "0.3.0"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 dependencies = ["smarter-client==0.2.0", "homeassistant>=2024.6.0b4"]
@@ -28,6 +28,9 @@ disable = ['no-name-in-module']
 asyncio_mode = "auto"
 pythonpath = "."
 addopts = ["--allow-unix-socket"]
+
+[tool.ruff.format]
+quote-style = "double"
 
 [tool.ruff.lint]
 select = ["D", "E", "F", "W", "I", "UP", "R"]

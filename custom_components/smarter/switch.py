@@ -27,10 +27,7 @@ def make_check_status(key: str, values: list[Any]) -> bool:
 
 def set_boil(device: BaseDevice, value: bool):
     """Invoke or cancel the boil command."""
-    if value:
-        device.device.commands.get("start_boil").execute(device.user_id, True)
-    else:
-        device.device.commands.get("stop_boil").execute(device.user_id, True)
+    device.send_command("start_boil" if value else "stop_boil", True)
 
 
 @dataclass(frozen=True, kw_only=True)

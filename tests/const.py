@@ -1,6 +1,7 @@
 """Constants for Smarter Kettle and Coffee integration tests."""
 
 from datetime import datetime
+from unittest.mock import MagicMock
 
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 
@@ -27,13 +28,42 @@ MOCK_USER = {
     "temperature_unit": 0,
 }
 
+MOCK_DEVICE_ID = "test_kettle1"
+MOCK_DEVICE_NAME = "Test Kettle"
+MOCK_DEVICE_INTERNAL = {
+    "commands": MagicMock(spec=dict),
+    "status": {"state": "Idle"},
+    "identifier": MOCK_DEVICE_ID,
+    "is_stub": False,
+}
+
 MOCK_DEVICE = {
-    "identifier": "TEST_KETTLE1",
-    "status": {"success": True},
-    "settings": {"setting": 1},
+    "id": MOCK_DEVICE_ID,
+    "type": "kettle",
+    "status": {
+        "device_model": "TEST_KETTLE1",
+        "state": "Idle",
+        "boil_temperature": 99.0,
+        "target_temperature": 99.0,
+        "water_temperature": 80.0,
+        "kettle_is_present": True,
+        "keep_warm_time": 5.0,
+    },
+    "settings": MagicMock(**{"setting": 1}),
     "model": "TEST_KETTLE1",
     "firmware_version": "0.0.0",
-    "id": "TEST01",
-    "friendly_name": "Test Kettle",
-    "device": {"identifier": "TEST_KETTLE1"},
+    "friendly_name": MOCK_DEVICE_NAME,
+    "device": MagicMock(**MOCK_DEVICE_INTERNAL),
 }
+
+
+MOCK_NETWORK = {
+    "access_tokens_fcm": dict(),
+    "associated_devices": [MagicMock(**MOCK_DEVICE)],
+    "name": "Mock Network",
+    "owner": MagicMock(MOCK_USER),
+}
+
+MOCK_DEVICE_INTERNAL["settings"] = (
+    MagicMock(identifier="/", model="TEST_KETTLE1", network=MagicMock(**MOCK_NETWORK)),
+)

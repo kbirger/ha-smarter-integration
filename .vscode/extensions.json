@@ -4,10 +4,11 @@
     "ms-python.debugpy",
     "github.vscode-pull-request-github",
     "ryanluker.vscode-coverage-gutters",
-    "ms-python.black-formatter",
     "tamasfe.even-better-toml",
-    "ms-python.isort",
     "ms-python.vscode-pylance",
-    "ms-python.pylint"
+    "eamodio.gitlens",
+    "charliermarsh.ruff",
+    "redhat.vscode-yaml",
+    "github.vscode-github-actions"
   ]
 }

@@ -1,69 +1,87 @@
-"""Test Smarter Kettle and Coffee integration switch."""
+"""Test Smarter Kettle and Coffee integration switches."""
 
-import asyncio
-from unittest.mock import MagicMock, patch
+from types import SimpleNamespace
+from unittest.mock import call
 
 import pytest
-import smarter_client.domain.smarter_client
+from custom_components.smarter.sensor import SmarterSensor
+from custom_components.smarter.switch import SWITCH_TYPES
 from homeassistant.components.switch import SERVICE_TURN_OFF, SERVICE_TURN_ON
-from homeassistant.const import ATTR_ENTITY_ID
+from homeassistant.const import ATTR_ENTITY_ID, Platform
+from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from .const import MOCK_CONFIG
-
-DEFAULT_NAME = "DEFAULT_NAME"
-SWITCH = "switch"
+from .helpers import generate_unique_id, get_entity, get_unique_id
 
 
-@pytest.fixture(autouse=True)
-def patch_SmarterClient(monkeypatch):
-    """Todo."""
-    pass
+@pytest.mark.parametrize("init_integration", [(False,)], indirect=True)
+@pytest.mark.parametrize("bypass_get_data", [{}], indirect=True)
+@pytest.mark.parametrize(
+    "expected_unique_id",
+    [generate_unique_id(description.key) for description in SWITCH_TYPES],
+    indirect=False,
+)
+def test_expected_switches(
+    hass: HomeAssistant,
+    bypass_get_data,
+    init_integration: MockConfigEntry,
+    expected_unique_id,
+):
+    """Test that the expected sensor entities are created."""
+    # for expected_unique_id in expected_switches:
+    entity_id = get_unique_id(hass, expected_unique_id, Platform.SWITCH)
+    assert entity_id is not None, f"entity {expected_unique_id} should exist"
 
 
-@pytest.mark.skip()
-async def test_switch_services(hass, monkeypatch, patch_SmarterClient):
-    """Test switch services."""
-    monkeypatch.setattr(
-        smarter_client.domain.smarter_client, "SmarterClient", MagicMock()
+@pytest.mark.parametrize("bypass_get_data", [{}], indirect=True)
+@pytest.mark.parametrize("init_integration", [(False,)], indirect=True)
+@pytest.mark.parametrize(
+    "service_data",
+    [
+        SimpleNamespace(
+            switch_key="start_boil", on_command="start_boil", off_command="stop_boil"
+        )
+    ],
+)
+async def test_switch_services(
+    hass: HomeAssistant,
+    bypass_get_data,
+    init_integration: MockConfigEntry,
+    service_data: SimpleNamespace,
+):
+    """Test sensor entity services."""
+    unique_id = generate_unique_id(service_data.switch_key)
+    entity: SmarterSensor = get_entity(hass, unique_id, platform=Platform.SWITCH)
+    device = entity.device
+    device.send_command.return_value = "executed"
+
+    await hass.services.async_call(
+        Platform.SWITCH,
+        SERVICE_TURN_ON,
+        service_data={
+            ATTR_ENTITY_ID: entity.entity_id,
+        },
+        blocking=True,
     )
-    from custom_components.smarter import async_setup_entry
-    from custom_components.smarter.const import DOMAIN
 
-    # Create a mock entry so we don't have to go through config flow
-    config_entry = MockConfigEntry(domain=DOMAIN, data=MOCK_CONFIG, entry_id="test")
+    # Assert that the command was invoked with the correct args
+    assert device.send_command.called
+    assert device.send_command.call_args == call(
+        service_data.on_command,
+        True,
+    )
 
-    client = smarter_client.domain.smarter_client.SmarterClient
-    # with patch("smarter_client.domain.smarter_client.SmarterClient") as client:
-    client.sign_in.return_value = asyncio.Future()
-    client.sign_in.set_result({"id": "test"})
-    assert await async_setup_entry(hass, config_entry)
-    await hass.async_block_till_done()
+    await hass.services.async_call(
+        Platform.SWITCH,
+        SERVICE_TURN_OFF,
+        service_data={
+            ATTR_ENTITY_ID: entity.entity_id,
+        },
+        blocking=True,
+    )
 
-    # Functions/objects can be patched directly in test code as well and can be used to
-    # test additional things, like whether a function was called or what arguments it
-    # was called with.
-    with patch("smarter_client.managed_devices.base.BaseDevice.device") as device:
-        device.commands = {
-            "start_boil": MagicMock(),
-            "stop_boil": MagicMock(),
-        }
-        await hass.services.async_call(
-            SWITCH,
-            SERVICE_TURN_OFF,
-            service_data={ATTR_ENTITY_ID: f"{SWITCH}.{DEFAULT_NAME}_{SWITCH}"},
-            blocking=True,
-        )
-        # assert title_func.called
-        # assert title_func.call_args == call("foo")
-
-        # title_func.reset_mock()
-
-        await hass.services.async_call(
-            SWITCH,
-            SERVICE_TURN_ON,
-            service_data={ATTR_ENTITY_ID: f"{SWITCH}.{DEFAULT_NAME}_{SWITCH}"},
-            blocking=True,
-        )
-        # assert title_func.called
-        # assert title_func.call_args == call("bar")
+    assert device.send_command.called
+    assert device.send_command.call_args == call(
+        service_data.off_command,
+        True,
+    )

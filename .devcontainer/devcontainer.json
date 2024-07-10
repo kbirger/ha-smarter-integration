@@ -25,6 +25,7 @@
         "ryanluker.vscode-coverage-gutters",
         "tamasfe.even-better-toml",
         "ms-python.vscode-pylance",
+        "eamodio.gitlens",
         "charliermarsh.ruff",
         "redhat.vscode-yaml",
         "github.vscode-github-actions"

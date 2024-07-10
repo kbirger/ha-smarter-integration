@@ -58,10 +58,11 @@ class SmarterEntity(Entity):
     def unique_id(self):
         """Return a unique identifier for this sensor."""
         return "-".join(
-            self.device.device.identifier,
-            self.device.type,
-            self.device_class,
-            self.entity_description.key,
+            (
+                self.device.id,
+                self.device.type,
+                self.entity_description.key if self.entity_description else "device",
+            )
         )
 
     @property
@@ -70,7 +71,7 @@ class SmarterEntity(Entity):
         return DeviceInfo(
             identifiers={(DOMAIN, self.device.device.identifier)},
             manufacturer=MANUFACTURER,
-            model=self.device.status.get("device_model"),
+            model=self.device.model,
             name=self.device.friendly_name,
             suggested_area="Kitchen",
             sw_version=self.device.firmware_version,
