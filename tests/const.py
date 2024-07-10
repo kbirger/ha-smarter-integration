@@ -38,7 +38,7 @@ MOCK_DEVICE_INTERNAL = {
 }
 
 MOCK_DEVICE = {
-    "identifier": MOCK_DEVICE_ID,
+    "id": MOCK_DEVICE_ID,
     "type": "kettle",
     "status": {
         "device_model": "TEST_KETTLE1",
@@ -52,7 +52,6 @@ MOCK_DEVICE = {
     "settings": MagicMock(**{"setting": 1}),
     "model": "TEST_KETTLE1",
     "firmware_version": "0.0.0",
-    "id": "TEST01",
     "friendly_name": MOCK_DEVICE_NAME,
     "device": MagicMock(**MOCK_DEVICE_INTERNAL),
 }

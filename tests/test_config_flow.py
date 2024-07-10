@@ -5,6 +5,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from custom_components.smarter.const import DOMAIN
 from homeassistant import config_entries, data_entry_flow
+from homeassistant.const import CONF_USERNAME
 
 from .const import MOCK_CONFIG, MOCK_SESSION
 
@@ -63,7 +64,7 @@ async def test_successful_config_flow(hass, bypass_get_data):
     # the input data
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert (
-        result["title"] == "Smarter Kettle and Coffee"
+        result["title"] == MOCK_CONFIG[CONF_USERNAME]
     )  # later will move to config entry per device
     assert result["data"] == {
         **MOCK_CONFIG,

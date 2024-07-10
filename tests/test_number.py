@@ -1,10 +1,12 @@
 """Test Smarter Kettle and Coffee integration numberes."""
 
-from types import SimpleNamespace
 from unittest.mock import call
 
 import pytest
-from custom_components.smarter.number import NUMBER_TYPES
+from custom_components.smarter.number import (
+    NUMBER_TYPES,
+    SmarterNumberEntityDescription,
+)
 from custom_components.smarter.sensor import SmarterSensor
 from homeassistant.components.number import ATTR_VALUE, SERVICE_SET_VALUE
 from homeassistant.const import ATTR_ENTITY_ID, Platform
@@ -21,7 +23,7 @@ from .helpers import generate_unique_id, get_entity, get_unique_id
     [generate_unique_id(description.key) for description in NUMBER_TYPES],
     indirect=False,
 )
-def test_expected_numberes(
+def test_expected_numbers(
     hass: HomeAssistant,
     bypass_get_data,
     init_integration: MockConfigEntry,
@@ -35,38 +37,29 @@ def test_expected_numberes(
 
 @pytest.mark.parametrize("bypass_get_data", [{}], indirect=True)
 @pytest.mark.parametrize("init_integration", [(False,)], indirect=True)
-@pytest.mark.parametrize(
-    "service_data",
-    [
-        SimpleNamespace(
-            unique_id=generate_unique_id(description.key),
-            key=description.key,
-            value=description.native_max_value,
-        )
-        for description in NUMBER_TYPES
-    ],
-)
+@pytest.mark.parametrize("description", NUMBER_TYPES)
 async def test_number_services(
     hass: HomeAssistant,
     bypass_get_data,
     init_integration: MockConfigEntry,
-    service_data: SimpleNamespace,
+    description: SmarterNumberEntityDescription,
 ):
     """Test sensor entity services."""
-    entity: SmarterSensor = get_entity(
-        hass, service_data.unique_id, platform=Platform.NUMBER
-    )
+    key = description.key
+    unique_id = generate_unique_id(key)
+    value = description.native_max_value
+    entity: SmarterSensor = get_entity(hass, unique_id, platform=Platform.NUMBER)
     device = entity.device
     device.send_command.return_value = "executed"
 
     await hass.services.async_call(
         Platform.NUMBER,
         SERVICE_SET_VALUE,
-        service_data={ATTR_ENTITY_ID: entity.entity_id, ATTR_VALUE: service_data.value},
+        service_data={ATTR_ENTITY_ID: entity.entity_id, ATTR_VALUE: value},
         blocking=True,
     )
 
     # Assert that the command was invoked with the correct args
-    handler = getattr(device, f"set_{service_data.key}")
+    handler = getattr(device, f"set_{key}")
     assert handler.called
-    assert handler.call_args == call(service_data.value)
+    assert handler.call_args == call(value)
