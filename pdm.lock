@@ -5,7 +5,7 @@
 groups = ["default", "testing", "linting"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:0b7202f36cb08ac994dc93cef033a781833348af73d13270f1be97a6fdec5423"
+content_hash = "sha256:811a1b97ab2cb2ac83bdbec5633ba2dfe51e95cf046130166992891819e4e9db"
 
 [[package]]
 name = "acme"
@@ -2173,7 +2173,7 @@ files = [
 
 [[package]]
 name = "smarter-client"
-version = "0.2.0"
+version = "0.2.1"
 requires_python = ">=3.12.2"
 summary = "Smarter Kettle client library"
 groups = ["default"]
@@ -2185,8 +2185,8 @@ dependencies = [
     "setuptools>=69.5.1",
 ]
 files = [
-    {file = "smarter_client-0.2.0-py3-none-any.whl", hash = "sha256:d8499fc5c6b19b5fddff12e65daf04300f5317db6f85e99386702f20d27346ab"},
-    {file = "smarter_client-0.2.0.tar.gz", hash = "sha256:f591804f53e228bdc8e59da95e0e2f4f5cce3ef87de901beb329dc4500da92d5"},
+    {file = "smarter_client-0.2.1-py3-none-any.whl", hash = "sha256:9bfa454756318a4008fe2f39b0572ec1afc37d90afc7384e4e5f0c6cbafb4444"},
+    {file = "smarter_client-0.2.1.tar.gz", hash = "sha256:ff3fa22f31bcafe521b8d6d1dce6f07ff5b7f52941599cc214f83ba0e728c30b"},
 ]
 
 [[package]]

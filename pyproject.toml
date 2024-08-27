@@ -1,9 +1,9 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.3.0"
+version = "0.3.1-dev.0"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
-dependencies = ["smarter-client==0.2.0", "homeassistant>=2024.6.0b4"]
+dependencies = ["smarter-client==0.2.1", "homeassistant>=2024.6.0b4"]
 requires-python = "~=3.12.2"
 readme = "README.md"
 license = { text = "MIT" }
