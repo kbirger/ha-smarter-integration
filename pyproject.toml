@@ -1,9 +1,9 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.3.1-dev.2"
+version = "0.3.1-dev.3"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
-dependencies = ["smarter-client==0.2.2", "homeassistant>=2024.6.0b4"]
+dependencies = ["smarter-client>=0.2.2", "homeassistant>=2024.9.2"]
 requires-python = "~=3.12.5"
 readme = "README.md"
 license = { text = "MIT" }
@@ -12,20 +12,20 @@ license = { text = "MIT" }
 [project.optional-dependencies]
 dev = [
     "mypy>=1.11.2",
-    "pytest-homeassistant-custom-component==0.13.128",
-    "pytest>=8.1.1",
+    "pytest-homeassistant-custom-component>=0.13.163",
+    "pytest>=8.3.1",
     "pytest-cov>=5.0.0",
-    "pytest-asyncio>=0.23.6",
-    "pre-commit>=3.7.0",
+    "pytest-asyncio>=0.23.8",
+    "pre-commit>=3.8.0",
     "ruff>=0.6.5",
 ]
 testing = [
-    "pytest-homeassistant-custom-component==0.13.128",
-    "pytest>=8.1.1",
+    "pytest-homeassistant-custom-component>=0.13.163",
+    "pytest>=8.3.1",
     "pytest-cov>=5.0.0",
-    "pytest-asyncio>=0.23.6",
+    "pytest-asyncio>=0.23.8",
 ]
-linting = ["pre-commit>=3.7.0", "ruff>=0.6.5"]
+linting = ["pre-commit>=3.8.0", "ruff>=0.6.5"]
 
 [tool.pdm]
 distribution = false
