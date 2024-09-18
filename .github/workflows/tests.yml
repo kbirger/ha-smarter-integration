@@ -62,9 +62,4 @@ jobs:
           pdm install -G testing
       - name: Tests suite
         run: |
-          pdm run pytest \
-            --timeout=9 \
-            --durations=10 \
-            -n auto \
-            -p no:sugar \
-            tests
+          pdm run test-ci

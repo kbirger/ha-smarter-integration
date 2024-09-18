@@ -23,4 +23,9 @@
     ".",
     "--force-enable-socket",
     "--allow-unix-socket"
-  ]
+  ],
+  "mypy.runUsingActiveInterpreter": true,
+  "evenBetterToml.schema.associations": {
+    "pyproject.toml": "https://json.schemastore.org/pyproject.json"
+  }
+}

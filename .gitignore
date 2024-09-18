@@ -6,3 +6,5 @@ venv
 .venv
 *.pyc
 .pdm-python
+coverage
+coverage.xml
