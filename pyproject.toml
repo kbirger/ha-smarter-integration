@@ -11,19 +11,19 @@ license = { text = "MIT" }
 
 [project.optional-dependencies]
 dev = [
-    "mypy>=1.11.2",
+    "mypy>=1.13.0",
     "pytest-homeassistant-custom-component>=0.13.163",
-    "pytest>=8.3.1",
-    "pytest-cov>=5.0.0",
-    "pytest-asyncio>=0.23.8",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "pytest-asyncio>=0.24.0",
     "pre-commit>=3.8.0",
     "ruff>=0.6.5",
 ]
 testing = [
     "pytest-homeassistant-custom-component>=0.13.163",
-    "pytest>=8.3.1",
-    "pytest-cov>=5.0.0",
-    "pytest-asyncio>=0.23.8",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "pytest-asyncio>=0.24.0",
 ]
 linting = ["pre-commit>=3.8.0", "ruff>=0.6.5"]
 
