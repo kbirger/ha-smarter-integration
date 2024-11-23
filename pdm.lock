@@ -5,7 +5,7 @@
 groups = ["default", "dev", "linting", "testing"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:32fa2bb9c21a1889893f86a103deacb0ed2f913732b3b5a7914ae1882c0bc85b"
+content_hash = "sha256:13d73b0901a36267b9513bf4c16f0b7d7525b53fb3ffd060f5364ed6e84daced"
 
 [[metadata.targets]]
 requires_python = "~=3.12.5"
@@ -759,6 +759,21 @@ groups = ["default"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "fnvhash-0.1.0.tar.gz", hash = "sha256:3e82d505054f9f3987b2b5b649f7e7b6f48349f6af8a1b8e4d66779699c85a8e"},
+]
+
+[[package]]
+name = "freezegun"
+version = "1.5.1"
+requires_python = ">=3.7"
+summary = "Let your Python tests travel through time"
+groups = ["testing"]
+marker = "python_full_version ~= \"3.12.5\""
+dependencies = [
+    "python-dateutil>=2.7",
+]
+files = [
+    {file = "freezegun-1.5.1-py3-none-any.whl", hash = "sha256:bf111d7138a8abe55ab48a71755673dbaa4ab87f4cff5634a4442dfec34c15f1"},
+    {file = "freezegun-1.5.1.tar.gz", hash = "sha256:b29dedfcda6d5e8e083ce71b2b542753ad48cfec44037b3fc79702e2980a89e9"},
 ]
 
 [[package]]
@@ -1847,7 +1862,7 @@ name = "python-dateutil"
 version = "2.9.0.post0"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 summary = "Extensions to the standard Python datetime module"
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 dependencies = [
     "six>=1.5",
@@ -2026,7 +2041,7 @@ name = "six"
 version = "1.16.0"
 requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 summary = "Python 2 and 3 compatibility utilities"
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
