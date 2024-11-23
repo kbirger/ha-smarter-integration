@@ -25,6 +25,7 @@ testing = [
     "pytest-cov>=6.0.0",
     "pytest-asyncio>=0.24.0",
     "freezegun>=1.5.1",
+    "pytest-freezegun>=0.4.2",
 ]
 linting = ["pre-commit>=3.8.0", "ruff>=0.6.5"]
 

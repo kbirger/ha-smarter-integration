@@ -5,7 +5,7 @@
 groups = ["default", "dev", "linting", "testing"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:13d73b0901a36267b9513bf4c16f0b7d7525b53fb3ffd060f5364ed6e84daced"
+content_hash = "sha256:625fad907f6f5e6ffd02e574bc4467ea044aa622d7b55c5a9389402c7b49e640"
 
 [[metadata.targets]]
 requires_python = "~=3.12.5"
@@ -1840,6 +1840,21 @@ dependencies = [
 files = [
     {file = "pytest-cov-6.0.0.tar.gz", hash = "sha256:fde0b595ca248bb8e2d76f020b465f3b107c9632e6a1d1705f17834c89dcadc0"},
     {file = "pytest_cov-6.0.0-py3-none-any.whl", hash = "sha256:eee6f1b9e61008bd34975a4d5bab25801eb31898b032dd55addc93e96fcaaa35"},
+]
+
+[[package]]
+name = "pytest-freezegun"
+version = "0.4.2"
+summary = "Wrap tests with fixtures in freeze_time"
+groups = ["testing"]
+marker = "python_full_version ~= \"3.12.5\""
+dependencies = [
+    "freezegun>0.3",
+    "pytest>=3.0.0",
+]
+files = [
+    {file = "pytest-freezegun-0.4.2.zip", hash = "sha256:19c82d5633751bf3ec92caa481fb5cffaac1787bd485f0df6436fd6242176949"},
+    {file = "pytest_freezegun-0.4.2-py2.py3-none-any.whl", hash = "sha256:5318a6bfb8ba4b709c8471c94d0033113877b3ee02da5bfcd917c1889cde99a7"},
 ]
 
 [[package]]
