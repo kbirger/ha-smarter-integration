@@ -5,7 +5,7 @@
 groups = ["default", "dev", "linting", "testing"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:729433c74599e64e2070d903aa6fa799e17912edc8671f29f2cad870abe3f5bc"
+content_hash = "sha256:d07357a2361109a902facd2069fc107073559d79f24032160635d0700b31e868"
 
 [[metadata.targets]]
 requires_python = "~=3.12.5"
@@ -486,7 +486,7 @@ name = "certifi"
 version = "2024.8.30"
 requires_python = ">=3.6"
 summary = "Python package for providing Mozilla's CA Bundle."
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "certifi-2024.8.30-py3-none-any.whl", hash = "sha256:922820b53db7a7257ffbda3f597266d435245903d80737e34f8a45ff3e3230d8"},
@@ -535,7 +535,7 @@ name = "charset-normalizer"
 version = "3.4.0"
 requires_python = ">=3.7.0"
 summary = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "charset_normalizer-3.4.0-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:0713f3adb9d03d49d365b70b84775d0a0d18e4ab08d12bc46baa6132ba78aaf6"},
@@ -1056,7 +1056,7 @@ name = "idna"
 version = "3.10"
 requires_python = ">=3.6"
 summary = "Internationalized Domain Names in Applications (IDNA)"
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"},
@@ -1962,7 +1962,7 @@ name = "requests"
 version = "2.32.3"
 requires_python = ">=3.8"
 summary = "Python HTTP for Humans."
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 dependencies = [
     "certifi>=2017.4.17",
@@ -1973,6 +1973,21 @@ dependencies = [
 files = [
     {file = "requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"},
     {file = "requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"},
+]
+
+[[package]]
+name = "requests-mock"
+version = "1.12.1"
+requires_python = ">=3.5"
+summary = "Mock out responses from the requests package"
+groups = ["testing"]
+marker = "python_full_version ~= \"3.12.5\""
+dependencies = [
+    "requests<3,>=2.22",
+]
+files = [
+    {file = "requests-mock-1.12.1.tar.gz", hash = "sha256:e9e12e333b525156e82a3c852f22016b9158220d2f47454de9cae8a77d371401"},
+    {file = "requests_mock-1.12.1-py2.py3-none-any.whl", hash = "sha256:b1e37054004cdd5e56c84454cc7df12b25f90f382159087f4b6915aaeef39563"},
 ]
 
 [[package]]
@@ -2229,7 +2244,7 @@ name = "urllib3"
 version = "1.26.20"
 requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 summary = "HTTP library with thread-safe connection pooling, file post, and more."
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "urllib3-1.26.20-py2.py3-none-any.whl", hash = "sha256:0ed14ccfbf1c30a9072c7ca157e4319b70d65f623e91e7b32fadb2853431016e"},
