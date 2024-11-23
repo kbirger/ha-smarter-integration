@@ -5,7 +5,7 @@
 groups = ["default", "dev", "linting", "testing"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:625fad907f6f5e6ffd02e574bc4467ea044aa622d7b55c5a9389402c7b49e640"
+content_hash = "sha256:729433c74599e64e2070d903aa6fa799e17912edc8671f29f2cad870abe3f5bc"
 
 [[metadata.targets]]
 requires_python = "~=3.12.5"
@@ -1864,6 +1864,21 @@ dependencies = [
 files = [
     {file = "pytest_homeassistant_custom_component-0.13.183-py3-none-any.whl", hash = "sha256:dcd4d36ca144ac1c66da5354d9d584f54c360e66eb160cae64d1d063b3785ff9"},
     {file = "pytest_homeassistant_custom_component-0.13.183.tar.gz", hash = "sha256:8a748f7c89a2a2333fdfd0b9f8c6042fcbae88b9c599b0e694ed50459820c5af"},
+]
+
+[[package]]
+name = "pytest-socket"
+version = "0.7.0"
+requires_python = ">=3.8,<4.0"
+summary = "Pytest Plugin to disable socket calls during tests"
+groups = ["testing"]
+marker = "python_full_version ~= \"3.12.5\""
+dependencies = [
+    "pytest>=6.2.5",
+]
+files = [
+    {file = "pytest_socket-0.7.0-py3-none-any.whl", hash = "sha256:7e0f4642177d55d317bbd58fc68c6bd9048d6eadb2d46a89307fa9221336ce45"},
+    {file = "pytest_socket-0.7.0.tar.gz", hash = "sha256:71ab048cbbcb085c15a4423b73b619a8b35d6a307f46f78ea46be51b1b7e11b3"},
 ]
 
 [[package]]
