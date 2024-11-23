@@ -5,7 +5,7 @@
 groups = ["default", "dev", "linting", "testing"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:d07357a2361109a902facd2069fc107073559d79f24032160635d0700b31e868"
+content_hash = "sha256:d6b0f7fa6768a845d23200f02cae050fdce0d3b7effe90c9533ac980c9d7cf26"
 
 [[metadata.targets]]
 requires_python = "~=3.12.5"
@@ -188,7 +188,7 @@ name = "anyio"
 version = "4.6.2.post1"
 requires_python = ">=3.9"
 summary = "High level compatibility layer for multiple asynchronous event loop implementations"
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 dependencies = [
     "exceptiongroup>=1.0.2; python_version < \"3.11\"",
@@ -857,7 +857,7 @@ name = "h11"
 version = "0.14.0"
 requires_python = ">=3.7"
 summary = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 dependencies = [
     "typing-extensions; python_version < \"3.8\"",
@@ -993,7 +993,7 @@ name = "httpcore"
 version = "1.0.7"
 requires_python = ">=3.8"
 summary = "A minimal low-level HTTP client."
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 dependencies = [
     "certifi",
@@ -1025,7 +1025,7 @@ name = "httpx"
 version = "0.27.2"
 requires_python = ">=3.8"
 summary = "The next generation HTTP client."
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 dependencies = [
     "anyio",
@@ -1853,7 +1853,7 @@ files = [
 
 [[package]]
 name = "pytest-homeassistant-custom-component"
-version = "0.13.183"
+version = "0.13.184"
 requires_python = ">=3.12"
 summary = ""
 groups = ["dev", "testing"]
@@ -1862,8 +1862,8 @@ dependencies = [
     "sqlalchemy",
 ]
 files = [
-    {file = "pytest_homeassistant_custom_component-0.13.183-py3-none-any.whl", hash = "sha256:dcd4d36ca144ac1c66da5354d9d584f54c360e66eb160cae64d1d063b3785ff9"},
-    {file = "pytest_homeassistant_custom_component-0.13.183.tar.gz", hash = "sha256:8a748f7c89a2a2333fdfd0b9f8c6042fcbae88b9c599b0e694ed50459820c5af"},
+    {file = "pytest_homeassistant_custom_component-0.13.184-py3-none-any.whl", hash = "sha256:f8cbd226c0d28bf88e84689352b5477b5547dfd1c8e2ab948cfc48196c3edfc5"},
+    {file = "pytest_homeassistant_custom_component-0.13.184.tar.gz", hash = "sha256:0f47a5d7c7dfea8e7e24a171674cb947bbea93b1f5362207a89b2e0ec0ca391a"},
 ]
 
 [[package]]
@@ -2006,6 +2006,21 @@ files = [
 ]
 
 [[package]]
+name = "respx"
+version = "0.21.1"
+requires_python = ">=3.7"
+summary = "A utility for mocking out the Python HTTPX and HTTP Core libraries."
+groups = ["testing"]
+marker = "python_full_version ~= \"3.12.5\""
+dependencies = [
+    "httpx>=0.21.0",
+]
+files = [
+    {file = "respx-0.21.1-py2.py3-none-any.whl", hash = "sha256:05f45de23f0c785862a2c92a3e173916e8ca88e4caad715dd5f68584d6053c20"},
+    {file = "respx-0.21.1.tar.gz", hash = "sha256:0bd7fe21bfaa52106caa1223ce61224cf30786985f17c63c5d71eff0307ee8af"},
+]
+
+[[package]]
 name = "rsa"
 version = "4.9"
 requires_python = ">=3.6,<4"
@@ -2111,7 +2126,7 @@ name = "sniffio"
 version = "1.3.1"
 requires_python = ">=3.7"
 summary = "Sniff out which async library your code is running under"
-groups = ["default"]
+groups = ["default", "testing"]
 marker = "python_full_version ~= \"3.12.5\""
 files = [
     {file = "sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2"},

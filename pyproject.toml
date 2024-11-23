@@ -28,6 +28,7 @@ testing = [
     "pytest-freezegun>=0.4.2",
     "pytest-socket>=0.7.0",
     "requests-mock>=1.12.1",
+    "respx>=0.21.1",
 ]
 linting = ["pre-commit>=3.8.0", "ruff>=0.6.5"]
 
