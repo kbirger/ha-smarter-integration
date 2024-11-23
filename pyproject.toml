@@ -1,6 +1,6 @@
 [project]
 name = "homeassistant-smarter"
-version = "0.3.1-dev.5"
+version = "0.3.1-dev.4"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 dependencies = ["smarter-client>=0.2.4", "homeassistant>=2024.11.3"]
@@ -14,7 +14,7 @@ dev = [
     "mypy>=1.13.0",
     "pytest-homeassistant-custom-component>=0.13.183",
     "pytest>=8.3.3",
-    "pytest-cov>=6.0.0",
+    "pytest-cov>=5.0.0",
     "pytest-asyncio>=0.24.0",
     "pre-commit>=3.8.0",
     "ruff>=0.6.5",
@@ -22,13 +22,8 @@ dev = [
 testing = [
     "pytest-homeassistant-custom-component>=0.13.183",
     "pytest>=8.3.3",
-    "pytest-cov>=6.0.0",
+    "pytest-cov>=5.0.0",
     "pytest-asyncio>=0.24.0",
-    "freezegun>=1.5.1",
-    "pytest-freezegun>=0.4.2",
-    "pytest-socket>=0.7.0",
-    "requests-mock>=1.12.1",
-    "respx>=0.21.1",
 ]
 linting = ["pre-commit>=3.8.0", "ruff>=0.6.5"]
 
