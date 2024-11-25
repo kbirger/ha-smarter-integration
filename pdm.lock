@@ -5,7 +5,7 @@
 groups = ["default", "dev", "linting", "testing"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:964ea692635585dad9fa394a1c228a6bdd1c2d90181281243587308195741dad"
+content_hash = "sha256:a6aaf037a349c8cfad08806e38b8aea2e27b9f356fbde294867512c933839bef"
 
 [[metadata.targets]]
 requires_python = "~=3.12.5"
@@ -2327,7 +2327,7 @@ files = [
 
 [[package]]
 name = "smarter-client"
-version = "0.3.0.dev0"
+version = "0.3.0.dev3"
 requires_python = ">=3.12.4"
 summary = "Smarter Kettle client library"
 groups = ["default"]
@@ -2341,8 +2341,8 @@ dependencies = [
     "setuptools>=69.5.1",
 ]
 files = [
-    {file = "smarter_client-0.3.0.dev0-py3-none-any.whl", hash = "sha256:b398e12f25d398d17846b58fc7ea1e023f42d2b54ff5ddbe4fe01a31ae7d003f"},
-    {file = "smarter_client-0.3.0.dev0.tar.gz", hash = "sha256:69fb9a25c6a277c291e59eb3f0236d22b3ead11c451af7a67ba0fd9d2bc9a6cd"},
+    {file = "smarter_client-0.3.0.dev3-py3-none-any.whl", hash = "sha256:8eb4d30069aeface54decb482d27a73f8d21ba45f4ac420037f9e799440ac03b"},
+    {file = "smarter_client-0.3.0.dev3.tar.gz", hash = "sha256:da5a1fb3dda367f8920cedb94272bb31481d13b0ae0b075b830e236ba9d1c5ec"},
 ]
 
 [[package]]

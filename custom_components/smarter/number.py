@@ -11,13 +11,14 @@ from homeassistant.components.number import (
     NumberEntityDescription,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfTemperature, UnitOfTime
+from homeassistant.const import Platform, UnitOfTemperature, UnitOfTime
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from smarter_client.managed_devices.base import BaseDevice
 
 from .const import DOMAIN
 from .entity import SmarterEntity
+from .helpers.config import async_setup_smarter_platform
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -58,13 +59,9 @@ async def async_setup_entry(
 ) -> None:
     """Set up Smarter sensors."""
     data = hass.data[DOMAIN][config_entry.entry_id]
-    entities = [
-        SmarterNumber(device, description)
-        for device in data.get("devices")
-        for description in NUMBER_TYPES
-    ]
-
-    async_add_entities(entities, True)
+    async_setup_smarter_platform(
+        hass, data, async_add_entities, Platform.BINARY_SENSOR, SmarterNumber, None
+    )
 
 
 class SmarterNumber(SmarterEntity, NumberEntity):

@@ -1,11 +1,26 @@
 """Smarter base entity definitions."""
 
+from __future__ import annotations
+
+from abc import abstractmethod
+from dataclasses import dataclass
+
+from homeassistant.components.binary_sensor import (
+    BinarySensorEntityDescription,
+)
+from homeassistant.components.sensor import (
+    SensorEntityDescription,
+)
+from homeassistant.const import Platform
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import Entity, EntityDescription
 from smarter_client.managed_devices.base import BaseDevice
 
-from .const import DOMAIN, MANUFACTURER
+from .const import (
+    DOMAIN,
+    MANUFACTURER,
+)
 
 # from .const import LOGGER
 
@@ -28,6 +43,11 @@ class SmarterEntity(Entity):
         self.entity_description = description
         self.device = device
         self._state = None
+        # self._attr_supported_features = (
+        #     SmarterSensorEntityFeature.SERVICE_AGENT
+        #     if description.key == "device"
+        #     else None
+        # )
 
     async def async_added_to_hass(self) -> None:
         """Run when entity about to be added to hass.
@@ -90,3 +110,32 @@ class SmarterEntity(Entity):
             "kettle_is_present": self.device.status.get("kettle_is_present"),
             "calibrated": self.device.status.get("calibrated"),
         }
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterEntityDescription(EntityDescription):
+    """Smarter entity base description."""
+
+    @property
+    @abstractmethod
+    def platform(self) -> Platform:
+        """Get the platform for this entity."""
+        raise NotImplementedError()
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterSensorEntityDescription(SensorEntityDescription, SmarterEntityDescription):
+    """Represent the Smarter sensor entity description."""
+
+    platform = Platform.SENSOR
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterBinarySensorEntityDescription(
+    SmarterEntityDescription, BinarySensorEntityDescription
+):
+    """Represent the Smarter sensor entity description."""
+
+    platform = Platform.BINARY_SENSOR
+    get_status_field: str
+    state_on_values: tuple[str | bool]

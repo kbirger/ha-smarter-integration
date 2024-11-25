@@ -16,11 +16,15 @@ from .const import DOMAIN
 from .entity import SmarterEntity
 
 
-def make_check_status(key: str, values: list[Any]) -> bool:
+def make_check_status(key: str, values: list[Any]) -> Callable[[BaseDevice], bool]:
     """Return a function that checks the status of a device."""
 
     def _check_status(device: BaseDevice) -> bool:
-        return device.device.status.get(key) in values
+        return (
+            device.device.status.get(key) in values
+            if device.device.status is not None
+            else False
+        )
 
     return _check_status
 

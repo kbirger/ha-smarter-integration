@@ -57,7 +57,7 @@ class SmarterConfigFlow(ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(
-        self, user_input: dict[str, Any] | None = None
+        self, user_input: dict[str, str] | None = None
     ) -> ConfigFlowResult:
         """Handle the initial step."""
         errors: dict[str, str] = {}
@@ -74,7 +74,7 @@ class SmarterConfigFlow(ConfigFlow, domain=DOMAIN):
                 errors["base"] = "unknown"
             else:
                 return self.async_create_entry(
-                    title=user_input.get(CONF_USERNAME), data=info
+                    title=user_input[CONF_USERNAME], data=info
                 )
 
         return self.async_show_form(

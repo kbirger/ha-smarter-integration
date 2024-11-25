@@ -1,6 +1,5 @@
 """Defines module for integrating HomeAssistant with the Smarter API Client."""
 
-import itertools
 from collections.abc import Generator
 from typing import Any
 
@@ -61,10 +60,9 @@ class SmarterHub:
         def _discover_devices() -> list[BaseDevice]:
             """Get a list of device wrappers from the user's networks."""
             return list(
-                itertools.chain.from_iterable(
-                    load_from_network(network, user.identifier)
-                    for network in user.networks.values()
-                )
+                device
+                for network in user.networks.values()
+                for device in load_from_network(network, user.identifier)
             )
 
         return await self.hass.async_add_executor_job(_discover_devices)
@@ -89,7 +87,7 @@ class SmarterHub:
         self,
         external_device_id: str,
         config_entry_id: str,
-    ) -> Generator[tuple[str, str]]:
+    ) -> Generator[tuple[str, dict]]:
         """
         Retrieve a list of commands supported by the specified device.
 
@@ -102,7 +100,6 @@ class SmarterHub:
             [1] example data, as provided by Smarter API
         """
         device = self._get_device(external_device_id, config_entry_id)
-
         for command in device.device.commands.values():
             yield (command.name, command.example)
 

@@ -1,9 +1,12 @@
 [project]
-dependencies = ["smarter-client>=0.3.0-dev.0", "homeassistant>=2024.11.3"]
+dependencies = ["smarter-client>=0.3.0-dev.3", "homeassistant>=2024.11.3"]
 requires-python = "~=3.12.4"
 readme = "README.md"
 license = { text = "MIT" }
-name = "ha-smarter-integration"
+name = "homeassistant-smarter"
+version = "0.3.1-dev.6"
+description = "Default template for PDM package"
+authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 
 [project.optional-dependencies]
 dev = [
@@ -67,8 +70,4 @@ convention = "pep257"
 
 
 [tool.ruff.lint.pyupgrade]
-name = "homeassistant-smarter"
-version = "0.3.1-dev.5"
-description = "Default template for PDM package"
-authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 keep-runtime-typing = true

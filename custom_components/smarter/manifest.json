@@ -14,9 +14,9 @@
     "smarter"
   ],
   "requirements": [
-    "smarter-client==0.2.4"
+    "smarter-client==0.3.0-dev.3"
   ],
   "ssdp": [],
-  "version": "0.3.1-dev.5",
+  "version": "0.3.1-dev.6",
   "zeroconf": []
 }
