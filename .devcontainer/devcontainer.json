@@ -2,7 +2,10 @@
   "image": "mcr.microsoft.com/devcontainers/python:1-3.12",
   "name": "Smarter Kettle and Coffee integration integration development",
   "appPort": [
-    "9123:8123"
+    "8123:8123"
+  ],
+  "forwardPorts": [
+    8123
   ],
   "customizations": {
     "vscode": {
@@ -28,9 +31,10 @@
         "eamodio.gitlens",
         "charliermarsh.ruff",
         "redhat.vscode-yaml",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "matangover.mypy"
       ]
     }
   },
-  "postCreateCommand": "container install"
+  "postCreateCommand": "scripts/setup.sh"
 }

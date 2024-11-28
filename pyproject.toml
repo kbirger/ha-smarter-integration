@@ -60,6 +60,7 @@ exclude = [
 line-length = 88
 [tool.ruff.format]
 quote-style = "double"
+line-ending = "lf"
 
 [tool.ruff.lint]
 select = ["D", "E", "F", "W", "I", "UP", "R"]

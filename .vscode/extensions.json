@@ -9,6 +9,7 @@
     "eamodio.gitlens",
     "charliermarsh.ruff",
     "redhat.vscode-yaml",
-    "github.vscode-github-actions"
+    "github.vscode-github-actions",
+    "matangover.mypy"
   ]
 }
