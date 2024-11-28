@@ -1,5 +1,7 @@
 """Module for Smarter Kettle V3 device."""
 
+from __future__ import annotations
+
 from collections.abc import Generator, Iterable
 
 from custom_components.smarter.const import (
@@ -7,19 +9,25 @@ from custom_components.smarter.const import (
     SERVICE_SCHEMA_QUICK_BOIL,
 )
 from custom_components.smarter.sensor import SmarterDeviceSensor
+from homeassistant.components.number import (
+    NumberDeviceClass,
+)
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorStateClass,
 )
-from homeassistant.const import PERCENTAGE, UnitOfTemperature
+from homeassistant.const import PERCENTAGE, UnitOfTemperature, UnitOfTime
 from smarter_client.managed_devices.kettle_v3 import SmarterKettleV3
 
-from ..entity import (
+from .base import (
+    DeviceConfig,
+    ServiceMetadata,
     SmarterBinarySensorEntityDescription,
     SmarterEntityDescription,
+    SmarterNumberEntityDescription,
     SmarterSensorEntityDescription,
+    SmarterSwitchEntityDescription,
 )
-from .base import DeviceConfig, ServiceMetadata
 
 SENSOR_TYPES: tuple[SmarterSensorEntityDescription, ...] = (
     SmarterSensorEntityDescription(
@@ -89,8 +97,44 @@ BINARY_SENSOR_TYPES = [
     ),
 ]
 
+SWITCH_TYPES = [
+    SmarterSwitchEntityDescription(
+        key="start_boil",
+        name="Boiling",
+        get_fn=make_check_status("state", ["Boiling", "Keeping Warm", "Cooling"]),
+        set_fn=set_boil,
+        icon="mdi:kettle-steam",
+    ),
+]
 
-ENTITY_TYPES = (*SENSOR_TYPES, *BINARY_SENSOR_TYPES)
+NUMBER_TYPES = [
+    SmarterNumberEntityDescription(
+        key="boil_temperature",
+        device_class=NumberDeviceClass.TEMPERATURE,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        native_min_value=0,
+        native_max_value=100,
+        native_step=1,
+        name="Boil Temperature",
+        set_fn=lambda device, value: device.set_boil_temperature(value),
+    ),
+    SmarterNumberEntityDescription(
+        key="keep_warm_time",
+        device_class=NumberDeviceClass.DURATION,
+        native_unit_of_measurement=UnitOfTime.MINUTES,
+        name="Keep Warm Time",
+        native_min_value=0,
+        native_max_value=40,
+        native_step=1,
+        set_fn=lambda device, value: device.set_keep_warm_time(value),
+    ),
+]
+
+ENTITY_TYPES = (
+    *SENSOR_TYPES,
+    *BINARY_SENSOR_TYPES,
+    *SWITCH_TYPES,
+)
 
 
 class SmarterKettleV3DeviceConfig(DeviceConfig):

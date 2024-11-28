@@ -3,14 +3,19 @@
 from __future__ import annotations
 
 from abc import abstractmethod
-from collections.abc import Iterable
+from collections.abc import Awaitable, Callable, Iterable
 from dataclasses import dataclass
 from itertools import chain
+from typing import Any
 
-from custom_components.smarter.entity import SmarterEntityDescription
+from homeassistant.components.binary_sensor import BinarySensorEntityDescription
+from homeassistant.components.number import NumberEntityDescription
+from homeassistant.components.sensor import SensorEntityDescription
+from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.const import Platform
 from homeassistant.helpers.entity import EntityDescription
 from homeassistant.helpers.typing import VolSchemaType
+from smarter_client.managed_devices.base import BaseDevice
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -63,3 +68,47 @@ class DeviceConfig:
     def get_service_metadata(self, platform: Platform) -> Iterable[ServiceMetadata]:
         """Get metadata for services on target platform."""
         return self.service_metadata if self.device_entity.platform == platform else []
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterEntityDescription(EntityDescription):
+    """Smarter entity base description."""
+
+    @property
+    @abstractmethod
+    def platform(self) -> Platform:
+        """Get the platform for this entity."""
+        raise NotImplementedError()
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterSensorEntityDescription(SensorEntityDescription, SmarterEntityDescription):
+    """Represent the Smarter sensor entity description."""
+
+    platform = Platform.SENSOR
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterBinarySensorEntityDescription(
+    SmarterEntityDescription, BinarySensorEntityDescription
+):
+    """Represent the Smarter sensor entity description."""
+
+    platform = Platform.BINARY_SENSOR
+    get_status_field: str
+    state_on_values: tuple[str | bool]
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterSwitchEntityDescription(SwitchEntityDescription):
+    """Represent the Smarter sensor entity description."""
+
+    get_fn: Callable[[BaseDevice], bool]
+    set_fn: Callable[[BaseDevice, Any], None]
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterNumberEntityDescription(NumberEntityDescription):
+    """Class describing Ecobee number entities."""
+
+    set_fn: Callable[[BaseDevice, int], Awaitable]

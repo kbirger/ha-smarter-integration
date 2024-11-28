@@ -2,54 +2,18 @@
 
 from __future__ import annotations
 
-from collections.abc import Awaitable, Callable
-from dataclasses import dataclass
-
 from homeassistant.components.number import (
-    NumberDeviceClass,
     NumberEntity,
-    NumberEntityDescription,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform, UnitOfTemperature, UnitOfTime
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from smarter_client.managed_devices.base import BaseDevice
 
 from .const import DOMAIN
 from .entity import SmarterEntity
+from .helpers.base import SmarterNumberEntityDescription
 from .helpers.config import async_setup_smarter_platform
-
-
-@dataclass(frozen=True, kw_only=True)
-class SmarterNumberEntityDescription(NumberEntityDescription):
-    """Class describing Ecobee number entities."""
-
-    set_fn: Callable[[BaseDevice, int], Awaitable]
-
-
-NUMBER_TYPES = [
-    SmarterNumberEntityDescription(
-        key="boil_temperature",
-        device_class=NumberDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        native_min_value=0,
-        native_max_value=100,
-        native_step=1,
-        name="Boil Temperature",
-        set_fn=lambda device, value: device.set_boil_temperature(value),
-    ),
-    SmarterNumberEntityDescription(
-        key="keep_warm_time",
-        device_class=NumberDeviceClass.DURATION,
-        native_unit_of_measurement=UnitOfTime.MINUTES,
-        name="Keep Warm Time",
-        native_min_value=0,
-        native_max_value=40,
-        native_step=1,
-        set_fn=lambda device, value: device.set_keep_warm_time(value),
-    ),
-]
 
 
 async def async_setup_entry(

@@ -3,17 +3,18 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from dataclasses import dataclass
 from typing import Any
 
-from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
+from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from smarter_client.managed_devices.base import BaseDevice
 
 from .const import DOMAIN
-from .entity import SmarterEntity
+from .entity import SmarterEntity, SmarterSwitchEntityDescription
+from .helpers.config import async_setup_smarter_platform
 
 
 def make_check_status(key: str, values: list[Any]) -> Callable[[BaseDevice], bool]:
@@ -34,25 +35,6 @@ def set_boil(device: BaseDevice, value: bool):
     device.send_command("start_boil" if value else "stop_boil", True)
 
 
-@dataclass(frozen=True, kw_only=True)
-class SmarterSwitchEntityDescription(SwitchEntityDescription):
-    """Represent the Smarter sensor entity description."""
-
-    get_fn: Callable[[BaseDevice], bool]
-    set_fn: Callable[[BaseDevice, Any], None]
-
-
-SWITCH_TYPES = [
-    SmarterSwitchEntityDescription(
-        key="start_boil",
-        name="Boiling",
-        get_fn=make_check_status("state", ["Boiling", "Keeping Warm", "Cooling"]),
-        set_fn=set_boil,
-        icon="mdi:kettle-steam",
-    ),
-]
-
-
 async def async_setup_entry(
     hass: HomeAssistant,
     config_entry: ConfigEntry,
@@ -60,13 +42,9 @@ async def async_setup_entry(
 ) -> None:
     """Set up Smarter sensors."""
     data = hass.data[DOMAIN][config_entry.entry_id]
-    entities = [
-        SmarterSwitch(device, description)
-        for device in data.get("devices")
-        for description in SWITCH_TYPES
-    ]
-
-    async_add_entities(entities, True)
+    async_setup_smarter_platform(
+        hass, data, async_add_entities, Platform.SWITCH, SmarterSwitch, None
+    )
 
 
 class SmarterSwitch(SmarterEntity, SwitchEntity):

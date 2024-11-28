@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 from abc import abstractmethod
+from collections.abc import Callable
 from dataclasses import dataclass
+from typing import Any
 
-from homeassistant.components.binary_sensor import (
-    BinarySensorEntityDescription,
-)
-from homeassistant.components.sensor import (
-    SensorEntityDescription,
-)
+from homeassistant.components.binary_sensor import BinarySensorEntityDescription
+from homeassistant.components.sensor import SensorEntityDescription
+from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.const import Platform
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -139,3 +138,11 @@ class SmarterBinarySensorEntityDescription(
     platform = Platform.BINARY_SENSOR
     get_status_field: str
     state_on_values: tuple[str | bool]
+
+
+@dataclass(frozen=True, kw_only=True)
+class SmarterSwitchEntityDescription(SwitchEntityDescription):
+    """Represent the Smarter sensor entity description."""
+
+    get_fn: Callable[[BaseDevice], bool]
+    set_fn: Callable[[BaseDevice, Any], None]
