@@ -4,12 +4,13 @@ from collections.abc import Generator
 from typing import Any
 
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import HomeAssistantError
 from smarter_client.domain.models import LoginSession, User
 from smarter_client.domain.smarter_client import SmarterClient
 from smarter_client.managed_devices import load_from_network
 from smarter_client.managed_devices.base import BaseDevice
 
-from custom_components.smarter.const import DOMAIN
+from custom_components.smarter.const import DOMAIN, LOGGER
 
 
 class DeviceNotFoundError(Exception):
@@ -25,6 +26,14 @@ class DeviceNotFoundError(Exception):
         super().__init__(f"No device found with id {external_device_id}")
 
 
+class CannotConnect(HomeAssistantError):
+    """Error to indicate we cannot connect."""
+
+
+class InvalidAuth(HomeAssistantError):
+    """Error to indicate there is invalid auth."""
+
+
 class SmarterHub:
     """Provide a facade around the Smarter API."""
 
@@ -36,16 +45,37 @@ class SmarterHub:
         self.hass = hass
         self.client = SmarterClient()
 
-    async def sign_in(self, username, password):
+    def _sign_in(self, username: str, password: str, refresh_token: str | None = None):
+        if refresh_token is not None:
+            try:
+                return self.client.sign_in_with_refresh_token(refresh_token)
+            except Exception as err:
+                LOGGER.warning("failed to log in with provided refresh token. %s", err)
+                return self.client.sign_in(username, password)
+
+        return self.client.sign_in(username, password)
+
+    async def sign_in(self, refresh_token, username, password) -> LoginSession:
         """
         Asynchronously logs in to the Smarter API.
 
         Consumes provided credentials and returns a LoginSession or None, if sign-in
         fails.
         """
-        return await self.hass.async_add_executor_job(
-            self.client.sign_in, username, password
-        )
+        try:
+            session = await self.hass.async_add_executor_job(
+                self._sign_in,
+                username,
+                password,
+                refresh_token,
+            )
+
+            if session is None:
+                raise InvalidAuth()
+
+            return session
+        except Exception as err:
+            raise CannotConnect(err) from err
 
     async def get_user(self, session: LoginSession):
         """Retrieve Smarter API user from current session."""
@@ -60,9 +90,7 @@ class SmarterHub:
         def _discover_devices() -> list[BaseDevice]:
             """Get a list of device wrappers from the user's networks."""
             return list(
-                device
-                for network in user.networks.values()
-                for device in load_from_network(network, user.identifier)
+                device for network in user.networks.values() for device in load_from_network(network, user.identifier)
             )
 
         return await self.hass.async_add_executor_job(_discover_devices)
@@ -75,11 +103,7 @@ class SmarterHub:
 
     def _get_device(self, external_device_id: str, config_entry_id: str) -> BaseDevice:
         try:
-            return next(
-                device
-                for device in self._get_devices(config_entry_id)
-                if device.id == external_device_id
-            )
+            return next(device for device in self._get_devices(config_entry_id) if device.id == external_device_id)
         except StopIteration:
             raise DeviceNotFoundError(external_device_id)
 

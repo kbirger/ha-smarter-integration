@@ -7,6 +7,11 @@
   "forwardPorts": [
     8123
   ],
+  "portsAttributes": {
+    "8123": {
+      "label": "Home Assistant"
+    }
+  },
   "customizations": {
     "vscode": {
       "settings": {

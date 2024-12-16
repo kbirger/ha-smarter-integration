@@ -18,45 +18,47 @@ from ..const import (
     DOMAIN,
     SmarterSensorEntityFeature,
 )
-from ..entity import SmarterEntity
-from ..sensor import SmarterDeviceSensor
+from ..entity import SmarterEntityConstructor
+
+# from ..sensor import SmarterDeviceSensor
 from .base import DeviceConfig
 from .device_config import get_device_config
 
 
-def async_setup_smarter_platform(
+async def async_setup_smarter_platform(
     hass: HomeAssistant,
     data: Any,
     async_add_entities: AddEntitiesCallback,
     platform: Platform,
-    entity_constructor: type[SmarterEntity],
-    device_entity_constructor: type[SmarterEntity] | None,
+    entity_constructor: type[SmarterEntityConstructor],
 ):
     """Set up target platform and services."""
-    drivers: list[BaseDevice] = data.get("devices")
+    drivers: list[BaseDevice] = [hass.data[DOMAIN][device_id] for device_id in data.get("device_id")]
 
-    configs_and_drivers = ((driver, get_device_config(driver)) for driver in drivers)
+    def get_configs():
+        return [(driver, get_device_config(driver)) for driver in drivers]
 
-    all_entities = (
+    configs_and_drivers = await hass.async_add_executor_job(get_configs)
+
+    all_entities = [
         entity_constructor(device, entity_config)
         for (device, config) in configs_and_drivers
-        for entity_config in config.get_secondary_entities(platform)
-    )
+        for entity_config in config.get_all_entities(platform)
+    ]
 
-    constructor = device_entity_constructor or entity_constructor
-    device_entities = (
-        constructor(device, device_entity_config)
-        for (device, config) in configs_and_drivers
-        for device_entity_config in config.get_device_entities(platform)
-    )
+    # device_entities = (
+    #     entity_constructor(device, device_entity_config)
+    #     for (device, config) in configs_and_drivers
+    #     for device_entity_config in config.get_primary_entities(platform)
+    # )
 
     # Create detailed sensor entities for each device
     async_add_entities(all_entities, True)
 
     # Create special "device" entities that represent the main device
     # These will be the entities targeted by the services
-    configs = (config for (_, config) in configs_and_drivers)
-    _register_services(hass, configs, device_entities)
+    # configs = (config for (_, config) in configs_and_drivers)
+    # _register_services(hass, configs, device_entities)
 
 
 def _register_services(
@@ -100,21 +102,16 @@ def async_unload_smarter_platform(hass: HomeAssistant, data: Any, platform: Plat
         for service_metadata in config.get_service_metadata(platform)
     )
 
-    global_services = (
-        metadata.service_name for metadata in SmarterDeviceSensor.get_service_metadata()
-    )
+    # global_services = (metadata.service_name for metadata in SmarterDeviceSensor.get_service_metadata())
 
-    service_names = chain(global_services, device_services)
-    for service_name in service_names:
-        hass.services.async_remove(DOMAIN, service_name)
+    # service_names = chain(global_services, device_services)
+    # for service_name in service_names:
+    #     hass.services.async_remove(DOMAIN, service_name)
 
 
 def _get_global_metadata(device_entities):
     device_entities_map = {entity.entity_id: entity for entity in device_entities}
-    return (
-        (metadata, device_entities_map)
-        for metadata in SmarterDeviceSensor.get_service_metadata()
-    )
+    # return ((metadata, device_entities_map) for metadata in SmarterDeviceSensor.get_service_metadata())
 
 
 def _get_entity_specific_metadata(configs):

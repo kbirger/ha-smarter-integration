@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import Config, HomeAssistant
+from homeassistant.core_config import Config, HomeAssistant
 
 from custom_components.smarter.smarter_hub import SmarterHub
 
@@ -14,11 +14,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Smarter Kettle and Coffee from a config entry."""
     hass.data.setdefault(DOMAIN, {})
     hub = SmarterHub(hass)
-    session = await hub.sign_in(entry.data["username"], entry.data["password"])
+    session = await hub.sign_in(entry.data["refresh_token"], entry.data["username"], entry.data["password"])
     user = await hub.get_user(session)
 
     devices = await hub.discover_devices(user)
     for device in devices:
+        hass.data[DOMAIN][device.id] = device
         device.set_logger(LOGGER)
 
     hass.data[DOMAIN][entry.entry_id] = {"user": user, "devices": devices}

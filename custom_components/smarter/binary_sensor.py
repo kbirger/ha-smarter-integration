@@ -2,17 +2,18 @@
 
 from __future__ import annotations
 
-from homeassistant.components.binary_sensor import (
-    BinarySensorEntity,
-)
+from homeassistant.components.binary_sensor import BinarySensorEntity, BinarySensorEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from smarter_client.managed_devices.base import BaseDevice
 
-from .const import DOMAIN
-from .entity import SmarterBinarySensorEntityDescription, SmarterEntity
-from .helpers.config import async_setup_smarter_platform, async_unload_smarter_platform
+from custom_components.smarter.helpers.device_config import SmarterEntityConfig
+
+# from .const import DOMAIN
+from .entity import SmarterEntity
+from .helpers.config import async_setup_smarter_platform
 
 
 async def async_setup_entry(
@@ -21,36 +22,36 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up Smarter sensors."""
-    data = hass.data[DOMAIN][config_entry.entry_id]
-    async_setup_smarter_platform(
+    data = {**config_entry.data, **config_entry.options}
+
+    # data = hass.data[DOMAIN][config_entry.entry_id]
+    await async_setup_smarter_platform(
         hass,
         data,
         async_add_entities,
         Platform.BINARY_SENSOR,
         SmarterBinarySensor,
-        None,
     )
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Remove services and unload binary sensor entry."""
-    data = hass.data[DOMAIN][entry.entry_id]
+    # data = hass.data[DOMAIN][entry.entry_id]
 
-    async_unload_smarter_platform(hass, data, Platform.BINARY_SENSOR)
+    # async_unload_smarter_platform(hass, data, Platform.BINARY_SENSOR)
 
 
 class SmarterBinarySensor(SmarterEntity, BinarySensorEntity):
     """Representation of a Smarter binary sensor."""
 
-    entity_description: SmarterBinarySensorEntityDescription
+    entity_description: BinarySensorEntityDescription  # SmarterBinarySensorEntityDescription
 
     _attr_has_entity_name = True
+
+    def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+        super().__init__(device, config, config.sensor_entity_description)
 
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        description = self.entity_description
-        return (
-            self.device.status.get(description.get_status_field)
-            in description.state_on_values
-        )
+        return self.config.get_value(self.device)

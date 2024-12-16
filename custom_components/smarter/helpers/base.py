@@ -53,13 +53,9 @@ class DeviceConfig:
         """Get all entities."""
         return chain([self.device_entity], self.secondary_entities)
 
-    def get_secondary_entities(
-        self, platform: Platform
-    ) -> Iterable[SmarterEntityDescription]:
+    def get_secondary_entities(self, platform: Platform) -> Iterable[SmarterEntityDescription]:
         """Get all non-device-level entities for platform."""
-        return (
-            entity for entity in self.secondary_entities if entity.platform == platform
-        )
+        return (entity for entity in self.secondary_entities if entity.platform == platform)
 
     def get_device_entities(self, platform: Platform) -> Iterable[EntityDescription]:
         """Get main device-level entities for target platform."""
@@ -89,9 +85,7 @@ class SmarterSensorEntityDescription(SensorEntityDescription, SmarterEntityDescr
 
 
 @dataclass(frozen=True, kw_only=True)
-class SmarterBinarySensorEntityDescription(
-    SmarterEntityDescription, BinarySensorEntityDescription
-):
+class SmarterBinarySensorEntityDescription(SmarterEntityDescription, BinarySensorEntityDescription):
     """Represent the Smarter sensor entity description."""
 
     platform = Platform.BINARY_SENSOR

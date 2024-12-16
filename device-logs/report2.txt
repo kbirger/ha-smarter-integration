@@ -1,0 +1,1031 @@
+{
+  "devices": [
+    {
+      "id": "30000c2a690d05e7",
+      "status": {
+        "agent_options": [
+          0
+        ],
+        "alarm_failed": 0,
+        "boil_temperature": 100,
+        "boiled_keeping_warm": {
+          "heating": true,
+          "temperature": 80,
+          "ts": 1733244342
+        },
+        "boiling_finished": {
+          "heating": true,
+          "temperature": 80,
+          "ts": 1732031885
+        },
+        "boiling_started": {
+          "heating": false,
+          "temperature": 24.834747,
+          "ts": 1733328568
+        },
+        "calibrated": true,
+        "calibration_state": 0,
+        "cooled_keeping_warm": 0,
+        "cooling_finished": 0,
+        "device_model": "SMKET01",
+        "firmware_version": "1.09",
+        "first_used": "2020-11-18 22:11:39",
+        "formula_mode_enable": false,
+        "formula_mode_temperature": 70,
+        "formula_mode_temperature_reached": false,
+        "handle_right_side": false,
+        "imp_updated": {
+          "ts": 1733083807
+        },
+        "ip_address": {
+          "entries": [
+            {
+              "1605737492": "85.191.206.226"
+            }
+          ],
+          "lastEntry": 0
+        },
+        "keep_warm_finished": {
+          "heating": true,
+          "temperature": 80,
+          "ts": 1732629388
+        },
+        "keep_warm_time": 0,
+        "keep_warm_time_remaining": 8,
+        "kettle_is_present": true,
+        "last_imp_update": 1733083807,
+        "last_used": "",
+        "last_user_type": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+        "manual_boil_temperature": 100,
+        "manual_formula_mode_enable": false,
+        "manual_formula_mode_temperature": 70,
+        "manual_keep_warm_time": 10,
+        "online_state": "",
+        "options": "Unset",
+        "ping_count": 0,
+        "region": 3,
+        "rssi": -49,
+        "ssid": "akjl_24ghz",
+        "state": "Idle",
+        "target_temperature": 100,
+        "user_info": {
+          "exclusive_for": 0
+        },
+        "variant": "unset",
+        "water_level": 41,
+        "water_temperature": 26
+      },
+      "commands": [
+        {
+          "name": "add_alarm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "calibrate_weight_sensor",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "change_alarm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "remove_alarm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "reset_settings",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "resync_database",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "send_notification",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "send_ping",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "server_restart",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_boil_temperature",
+          "data": {
+            "-ODCLBaO2e44IcZAmBSq": {
+              "response": 0,
+              "state": "FIN",
+              "user_id": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+              "value": 80
+            },
+            "-ODCPMvShBXpMndwXkV_": {
+              "response": 0,
+              "state": "FIN",
+              "user_id": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+              "value": 80
+            },
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_formula_mode_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_formula_mode_temperature",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_handle_right_side",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_keep_warm_time",
+          "data": {
+            "-ODCLBLkLLB-mN7DZYYI": {
+              "response": 0,
+              "state": "ACK",
+              "user_id": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+              "value": 10
+            },
+            "-ODCPMt0jhbrw1_bsaAy": {
+              "response": 0,
+              "state": "FIN",
+              "user_id": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+              "value": 10
+            },
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_manual_boil_temperature",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_manual_formula_mode_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_manual_formula_mode_temperature",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_manual_keep_warm_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_options",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_pwm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_region",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_user",
+          "data": {
+            "example": {
+              "state": "NACK"
+            }
+          }
+        },
+        {
+          "name": "start_auto_boil",
+          "data": {
+            "example": {
+              "state": "NACK"
+            }
+          }
+        },
+        {
+          "name": "start_boil",
+          "data": {
+            "-ODCLBdGaaEcjTTx22I4": {
+              "response": 0,
+              "state": "FIN",
+              "user_id": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+              "value": true
+            },
+            "-ODCPMxw8QC09sv9WYMr": {
+              "response": 0,
+              "state": "FIN",
+              "user_id": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+              "value": true
+            },
+            "example": {
+              "state": "NACK"
+            }
+          }
+        },
+        {
+          "name": "stats_update",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "stop_boil",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "turn_off_wifi",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "30000c2a691ec683",
+      "status": {
+        "brewed_keeping_warm": {
+          "cups": 2,
+          "ts": 1733328941
+        },
+        "brewing_finished": 0,
+        "brewing_started": {
+          "cups": 2,
+          "ts": 1733328790
+        },
+        "carafe_is_present": true,
+        "coffee_custom_brew_time": 0,
+        "coffee_custom_grind_time": 0,
+        "coffee_soak_percentage": 0,
+        "coffee_soak_percentage_medium": [
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "coffee_soak_percentage_strong": [
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "coffee_soak_percentage_weak": [
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "coffee_strength": 80,
+        "coffee_strength_medium": [
+          null,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50,
+          50
+        ],
+        "coffee_strength_selected": "strong",
+        "coffee_strength_strong": [
+          null,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80,
+          80
+        ],
+        "coffee_strength_weak": [
+          null,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "cup_mode_enable": false,
+        "default_coffee_strength_selected": "strong",
+        "default_grind_enable": true,
+        "default_keep_warm_time": 40,
+        "default_number_of_cups": 4,
+        "default_preheat_time": 300,
+        "descaling_required": 0,
+        "device_model": "SMCOF01",
+        "firmware_version": "1.09",
+        "first_used": "",
+        "grind_enable": true,
+        "hotplate_enable": true,
+        "imp_updated": {
+          "ts": 1733307385
+        },
+        "ip_address": {
+          "entries": [
+            {
+              "1639656355": "85.191.206.226"
+            }
+          ],
+          "lastEntry": 0
+        },
+        "keep_warm_finished": 0,
+        "keep_warm_time": 40,
+        "keep_warm_time_remaining": 35,
+        "last_imp_update": 1733307385,
+        "last_used": "",
+        "last_user_type": "VEXmGdDYYSdui0GIIL1m24Ld2jn1",
+        "lcd_backlight_brightness": 100,
+        "lcd_backlight_timeout": 5,
+        "number_of_cups": 2,
+        "number_of_cups_since_descale": 0,
+        "online_state": "",
+        "options": "Unset",
+        "pause_and_brew_enable": true,
+        "pause_and_serve_enable": true,
+        "ping_count": 0,
+        "preheat_time": 180,
+        "region": 0,
+        "rssi": -46,
+        "ssid": "akjl_24ghz",
+        "state": "Keeping Warm",
+        "total_number_of_cups": 2002,
+        "total_number_of_cycles": 587,
+        "total_number_of_descales": 0,
+        "user_info": {
+          "exclusive_for": 0
+        },
+        "variant": "unset",
+        "water_level": 6
+      },
+      "commands": [
+        {
+          "name": "add_alarm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "change_alarm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "remove_alarm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "reset_settings",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "send_notification",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "send_ping",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "server_restart",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_auto_coffee_strength",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_auto_grind_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_auto_keep_warm_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_auto_number_of_cups",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_auto_preheat_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_coffee_soak_percentage",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_coffee_soak_percentage_medium",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": [
+                null,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "name": "set_coffee_soak_percentage_strong",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": [
+                null,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "name": "set_coffee_soak_percentage_weak",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": [
+                null,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "name": "set_coffee_strength",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_coffee_strength_medium",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": [
+                null,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "name": "set_coffee_strength_strong",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": [
+                null,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "name": "set_coffee_strength_weak",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": [
+                null,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "name": "set_cup_mode_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_default_coffee_strength_selected",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_default_grind_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_default_keep_warm_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_default_number_of_cups",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_default_preheat_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_grind_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_hotplate_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": true
+            }
+          }
+        },
+        {
+          "name": "set_keep_warm",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_keep_warm_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_lcd_backlight_brightness",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_lcd_backlight_timeout",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_max_keep_warm_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 120
+            }
+          }
+        },
+        {
+          "name": "set_minimum_cups",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 4
+            }
+          }
+        },
+        {
+          "name": "set_no_carafe_mode_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_number_of_cups",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_options",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_pause_and_brew_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_pause_and_serve_enable",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": false
+            }
+          }
+        },
+        {
+          "name": "set_preheat_time",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_region",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "set_user",
+          "data": {
+            "example": {
+              "state": "NACK"
+            }
+          }
+        },
+        {
+          "name": "start_auto_brew",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "start_brew",
+          "data": {
+            "-ODHQqZ7L1AM-qU6j6z5": {
+              "response": 0,
+              "state": "FIN"
+            },
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "stats_update",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "stop_brew",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        },
+        {
+          "name": "turn_off_wifi",
+          "data": {
+            "example": {
+              "state": "NACK",
+              "value": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

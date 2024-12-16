@@ -65,6 +65,30 @@
       "env": {
         "PYTHONPATH": "${workspaceFolder}"
       }
+    },
+    {
+      "name": "Python: Debug hass",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "homeassistant",
+      "args": [],
+      "justMyCode": false,
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Python: Debug hass (own only)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "homeassistant",
+      "args": [],
+      "justMyCode": true,
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
     }
   ]
 }

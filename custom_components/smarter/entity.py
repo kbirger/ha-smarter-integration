@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
-from abc import abstractmethod
-from collections.abc import Callable
-from dataclasses import dataclass
-from typing import Any
+from typing import Protocol
 
-from homeassistant.components.binary_sensor import BinarySensorEntityDescription
-from homeassistant.components.sensor import SensorEntityDescription
-from homeassistant.components.switch import SwitchEntityDescription
-from homeassistant.const import Platform
+from homeassistant.const import UnitOfTemperature
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.entity import Entity, EntityDescription
+from homeassistant.helpers.entity import EntityDescription
+from propcache import cached_property
 from smarter_client.managed_devices.base import BaseDevice
+
+from custom_components.smarter.helpers.device_config import SmarterEntityConfig
 
 from .const import (
     DOMAIN,
@@ -24,22 +21,26 @@ from .const import (
 # from .const import LOGGER
 
 
-class SmarterEntity(Entity):
+class SmarterEntityConstructor(Protocol):
+    def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+        pass
+
+
+class SmarterEntity:
     """Representation of a Smarter sensor."""
 
-    _attr_has_entity_name = True
+    # _attr_has_entity_name = True
 
     entity_description: EntityDescription
 
     device: BaseDevice
 
-    def __init__(
-        self,
-        device: BaseDevice,
-        description: EntityDescription,
-    ) -> None:
+    config: SmarterEntityConfig
+
+    def __init__(self, device: BaseDevice, config: SmarterEntityConfig, description: EntityDescription) -> None:
         """Initialize the sensor."""
         self.entity_description = description
+        self.config = config
         self.device = device
         self._state = None
         # self._attr_supported_features = (
@@ -73,16 +74,33 @@ class SmarterEntity(Entity):
         # LOGGER.debug(state)
         self.schedule_update_ha_state()
 
+    @cached_property
+    def native_unit_of_measurement(self):
+        if self.config.unit is not None:
+            return self.config.unit
+        if self.device_class == "temperature":
+            return UnitOfTemperature.CELSIUS
+        return None
+
     @property
     def unique_id(self):
         """Return a unique identifier for this sensor."""
-        return "-".join(
-            (
-                self.device.id,
-                self.device.type,
-                self.entity_description.key if self.entity_description else "device",
-            )
-        )
+        return self.config.unique_id(self.device.id)
+
+    @property
+    def name(self):
+        """Return the name for the UI."""
+        own_name = self.config.name
+        if not own_name and not self.use_device_name:
+            # super has the translation logic
+            own_name = getattr(super(), "name")
+        return own_name
+
+    @property
+    def use_device_name(self):
+        """Return whether to use the device name for the entity name"""
+        own_name = self.config.name or self.config.translation_key
+        return not own_name
 
     @property
     def device_info(self) -> DeviceInfo | None:
@@ -104,45 +122,47 @@ class SmarterEntity(Entity):
     @property
     def extra_state_attributes(self):
         """Return extra device attributes associated with entity."""
-        return {
-            "device_id": self.device.id,
-            "kettle_is_present": self.device.status.get("kettle_is_present"),
-            "calibrated": self.device.status.get("calibrated"),
-        }
+        if not self.config._is_primary:
+            return {
+                "device_id": self.device.id,
+                "kettle_is_present": self.device.status.get("kettle_is_present"),
+                "calibrated": self.device.status.get("calibrated"),
+            }
+        return {**self.device.status}
 
 
-@dataclass(frozen=True, kw_only=True)
-class SmarterEntityDescription(EntityDescription):
-    """Smarter entity base description."""
+# @dataclass(frozen=True, kw_only=True)
+# class SmarterEntityDescription(EntityDescription):
+#     """Smarter entity base description."""
 
-    @property
-    @abstractmethod
-    def platform(self) -> Platform:
-        """Get the platform for this entity."""
-        raise NotImplementedError()
-
-
-@dataclass(frozen=True, kw_only=True)
-class SmarterSensorEntityDescription(SensorEntityDescription, SmarterEntityDescription):
-    """Represent the Smarter sensor entity description."""
-
-    platform = Platform.SENSOR
+#     @property
+#     @abstractmethod
+#     def platform(self) -> Platform:
+#         """Get the platform for this entity."""
+#         raise NotImplementedError()
 
 
-@dataclass(frozen=True, kw_only=True)
-class SmarterBinarySensorEntityDescription(
-    SmarterEntityDescription, BinarySensorEntityDescription
-):
-    """Represent the Smarter sensor entity description."""
+# @dataclass(frozen=True, kw_only=True)
+# class SmarterSensorEntityDescription(SensorEntityDescription, SmarterEntityDescription):
+#     """Represent the Smarter sensor entity description."""
 
-    platform = Platform.BINARY_SENSOR
-    get_status_field: str
-    state_on_values: tuple[str | bool]
+#     platform = Platform.SENSOR
 
 
-@dataclass(frozen=True, kw_only=True)
-class SmarterSwitchEntityDescription(SwitchEntityDescription):
-    """Represent the Smarter sensor entity description."""
+# @dataclass(frozen=True, kw_only=True)
+# class SmarterBinarySensorEntityDescription(
+#     SmarterEntityDescription, BinarySensorEntityDescription
+# ):
+#     """Represent the Smarter sensor entity description."""
 
-    get_fn: Callable[[BaseDevice], bool]
-    set_fn: Callable[[BaseDevice, Any], None]
+#     platform = Platform.BINARY_SENSOR
+#     get_status_field: str
+#     state_on_values: tuple[str | bool]
+
+
+# @dataclass(frozen=True, kw_only=True)
+# class SmarterSwitchEntityDescription(SwitchEntityDescription):
+#     """Represent the Smarter sensor entity description."""
+
+#     get_fn: Callable[[BaseDevice], bool]
+#     set_fn: Callable[[BaseDevice, Any], None]

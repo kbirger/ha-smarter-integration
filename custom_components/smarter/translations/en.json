@@ -15,6 +15,13 @@
           "password": "Password",
           "username": "Username"
         }
+      },
+      "choose_devices": {
+        "title": "Choose which devices should be added to HomeAssistant",
+        "description": "Please pick the devices you wish to add from the list. Devices which have already been configured are not shown.",
+        "data": {
+          "device_id": "Choose device:"
+        }
       }
     }
   },
@@ -48,6 +55,52 @@
     "get_commands": {
       "name": "Get commands",
       "description": "Get list of commands supported by the device"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "water_temperature": {
+        "name": "Water temperature"
+      },
+      "boil_temperature": {
+        "name": "Boil temperature"
+      },
+      "target_temperature": {
+        "name": "Target temperature"
+      },
+      "water_level": {
+        "name": "Water level"
+      },
+      "state": {
+        "name": "State"
+      }
+    },
+    "number": {
+      "is_boiling": {
+        "boil_temperature": "Boil temperature"
+      }
+    },
+    "binary_sensor": {
+      "is_boiling": {
+        "name": "Boiling"
+      },
+      "is_cooling": {
+        "name": "Cooling"
+      },
+      "is_keep_warm": {
+        "name": "Keeping warm"
+      },
+      "kettle_is_present": {
+        "name": "Is present"
+      }
+    },
+    "switch": {
+      "is_boiling": {
+        "name": "Boiling"
+      },
+      "smarter_kettle_v3_is_boiling": {
+        "name": "BBBB"
+      }
     }
   }
 }
