@@ -1,0 +1,78 @@
+name: Smarter Kettle
+products:
+  - model: SMCOF01
+    name: Smarter Coffee V2
+primary_entity:
+  entity: sensor
+  state_field: state
+  translation_key: state
+  icon: "mdi:cofee"
+secondary_entities:
+  - entity: sensor
+    translation_key: brewed_keeping_warm
+    state_field: status.brewed_keeping_warm
+    state_class: measurement
+  - entity: sensor
+    translation_key: brewing_started
+    state_field: status.brewing_started
+    state_class: measurement
+  - entity: sensor
+    translation_key: number_of_cups_since_descale
+    state_class: measurement
+  - entity: sensor
+    translation_key: water_level
+    state_class: measurement
+  - entity: sensor
+    translation_key: coffee_soak_percentage
+    state_class: measurement
+  - entity: sensor
+    translation_key: coffee_custom_brew_time
+  - entity: sensor
+    translation_key: coffee_custom_grind_time
+    state_class: measurement
+  - entity: sensor
+    translation_key: keep_warm_time
+    unit: minutes
+    state_class: measurement
+  - entity: sensor
+    translation_key: keep_warm_time_remaining
+    unit: minutes
+    state_class: measurement
+  - entity: binary_sensor
+    translation_key: cup_mode_enable
+  - entity: binary_sensor
+    translation_key: carafe_is_present
+  - entity: number
+    translation_key: coffee_strength
+    unit: "%"
+    state_class: measurement
+    setter: set_coffee_strength
+    range:
+      min: 0
+      max: 100
+    step: 10
+  - entity: number
+    translation_key: number_of_cups
+    unit: "cups"
+    state_class: measurement
+    setter: set_number_of_cups
+    range:
+      min: 1
+      max: 8
+    step: 1
+  - entity: switch
+    translation_key: is_brewing
+    state_field: state
+    icon: "mdi:coffee"
+    setter_mapping:
+      - value: false
+        setter: stop_brew
+        native_value: true
+      - value: true
+        setter: start_brew
+        native_value: true
+    mapping:
+      - native_value: "Brewing"
+        value: true
+      - native_value: "Keeping warm"
+        value: true

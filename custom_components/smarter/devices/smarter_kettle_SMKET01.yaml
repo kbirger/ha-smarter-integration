@@ -4,62 +4,69 @@ products:
     name: Smarter Kettle V3
 primary_entity:
   entity: sensor
-  status_field: state
+  state_field: state
   translation_key: state
   icon: "mdi:kettle"
 secondary_entities:
-  # - entity: sensor
-  #   translation_key: "water_temperature"
-  #   unit: C
-  #   device_class: temperature
-  #   state_class: measurement
-  #   icon: "mdi:thermometer"
+  - entity: sensor
+    translation_key: "water_temperature"
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    icon: "mdi:thermometer"
   - entity: sensor
     translation_key: "boil_temperature"
     unit: C
     device_class: temperature
     state_class: measurement
     icon: "mdi:thermometer"
-  # - entity: sensor
-  #   translation_key: "target_temperature"
-  #   unit: C
-  #   device_class: temperature
-  #   state_class: measurement
-  #   icon: "mdi:thermometer"
-  # - entity: sensor
-  #   translation_key: "water_level"
-  #   unit: "%"
-  #   state_class: measurement
-  #   icon: "mdi:cup-water"
-  # - entity: binary_sensor
-  #   translation_key: "is_boiling"
-  #   status_field: state
-  #   mapping:
-  #     - native_value: "Boiling"
-  #       value: true
-  # - entity: binary_sensor
-  #   translation_key: is_cooling
-  #   state_field: "state"
-  #   mapping:
-  #     - native_value: "Cooling"
-  #       value: true
-  # - entity: binary_sensor
-  #   translation_key: is_keep_warm
-  #   state_field: "state"
-  #   mapping:
-  #     - native_value: "Keeping warm"
-  #       value: true
-  # - entity: binary_sensor
-  #   translation_key: kettle_is_present
-  # - entity: switch
-  #   translation_key: is_boiling
-  #   status_field: state
-  #   icon: "mdi:kettle-steam"
-  #   mapping:
-  #     - native_value: "Boiling"
-  #       value: true
-  #     - native_value: "Keeping warm"
-  #       value: true
+  - entity: sensor
+    translation_key: "target_temperature"
+    unit: C
+    device_class: temperature
+    state_class: measurement
+    icon: "mdi:thermometer"
+  - entity: sensor
+    translation_key: "water_level"
+    unit: "%"
+    state_class: measurement
+    icon: "mdi:cup-water"
+  - entity: binary_sensor
+    translation_key: "is_boiling"
+    state_field: state
+    mapping:
+      - native_value: "Boiling"
+        value: true
+  - entity: binary_sensor
+    translation_key: is_cooling
+    state_field: "state"
+    mapping:
+      - native_value: "Cooling"
+        value: true
+  - entity: binary_sensor
+    translation_key: is_keep_warm
+    state_field: "state"
+    mapping:
+      - native_value: "Keeping warm"
+        value: true
+  - entity: binary_sensor
+    translation_key: kettle_is_present
+  - entity: switch
+    translation_key: is_boiling
+    state_field: state
+    icon: "mdi:kettle-steam"
+    setter_mapping:
+      - value: false
+        setter: stop_boil
+        native_value: true
+      - value: true
+        setter: start_boil
+        native_value: true
+    mapping:
+      - native_value: "Boiling"
+        value: true
+      - native_value: "Keeping warm"
+        value: true
   - entity: number
     translation_key: boil_temperature
     unit: C
@@ -71,14 +78,14 @@ secondary_entities:
       min: 0
       max: 100
     step: 1
-  # - entity: number
-  #   translation_key: keep_warm_time
-  #   unit: minutes
-  #   device_class: duration
-  #   setter: set_keep_warm_time
-  #   state_class: measurement
-  #   icon: "mdi:clock"
-  #   range:
-  #     min: 0
-  #     max: 40
-  #   step: 1
+  - entity: number
+    translation_key: keep_warm_time
+    unit: minutes
+    device_class: duration
+    setter: set_keep_warm_time
+    state_class: measurement
+    icon: "mdi:clock"
+    range:
+      min: 0
+      max: 40
+    step: 1

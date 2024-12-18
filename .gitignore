@@ -3,7 +3,7 @@ pythonenv*
 .python-version
 .coverage
 venv
-.venv
+.venv*
 *.pyc
 .pdm-python
 coverage

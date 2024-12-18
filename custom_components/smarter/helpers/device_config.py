@@ -36,6 +36,7 @@ UNIT_ASCII_MAP = {
 
 
 def unit_from_ascii(unit):
+    """Return unit from plain ascii representation."""
     if unit in UNIT_ASCII_MAP:
         return UNIT_ASCII_MAP[unit]
 
@@ -99,6 +100,7 @@ class SmarterDeviceConfig:
         yield from self.secondary_entities()
 
     def get_all_entities(self, platform: Platform) -> Iterable[SmarterEntityConfig]:
+        """Return configs for all entities in the device."""
         return (entity for entity in self.all_entities() if entity.entity == platform)
 
     def get_secondary_entities(self, platform: Platform) -> Iterable[SmarterEntityConfig]:
@@ -195,10 +197,12 @@ class SmarterEntityConfig:
 
     @property
     def min(self):
+        """Return minimum valid value."""
         return self._range["min"]
 
     @property
     def max(self):
+        """Return maximum valid value."""
         return self._range["max"]
 
     @property
@@ -212,7 +216,7 @@ class SmarterEntityConfig:
         return native_value
 
     def _get_native_value_for_value(self, value):
-        for mapping in self._mappings:
+        for mapping in self.setter_mapping:
             if mapping.get("value") == value:
                 return mapping.get("native_value")
 
@@ -224,14 +228,17 @@ class SmarterEntityConfig:
 
     @property
     def step(self):
+        """Return step increment size."""
         return self._config.get("step")
 
     @property
     def category(self) -> EntityCategory | None:
+        """Return entity category."""
         return self._config.get("category")
 
     @property
     def unit(self):
+        """Return unit name."""
         unit = self._config.get("unit")
         return unit_from_ascii(unit) if unit is not None else None
 
@@ -242,23 +249,50 @@ class SmarterEntityConfig:
 
     @property
     def key(self):
+        """Return config key."""
         return self._config.get("key")
+
+    @property
+    def setter(self):
+        """Return name of setter for this field."""
+        return self._config.get("setter", [])
+
+    @property
+    def setter_mapping(self):
+        """
+        Return mapping of setters based on value.
+
+        Some fields require one service to switch to one value, and a different service for another.
+        """
+        return self._config.get("setter_mapping", [])
 
     @property
     def state_field(self):
         """Get the field name on the state object that is tracked by this entity."""
-        return self._config.get("state_field", self.name)
+        return self._config.get("state_field", self.name or self.translation_key)
 
     def get_value(self, device: BaseDevice):
+        """Return value of entity."""
         if device.device.status is None:
             return None
-        native_value = device.device.status.get(self.state_field)
+        native_value = _get_path(device.device.status, self.state_field)
         return self._get_value_for_native(native_value)
 
     def set_value(self, device: BaseDevice, value):
+        """Set entity value."""
+        setters = self.setter_mapping
+        setter_name = self._set_command
+        setter_mapping = next((setter for setter in setters if setter.get("value") == value), None)
+
+        if setter_mapping:
+            try:
+                setter_name = setter_mapping["setter"]
+            except KeyError:
+                raise ValueError(f"No setter name provided for {self.config_id} setter mapping for {value}")
+
         native_value = self._get_native_value_for_value(value)
 
-        device.send_command(self._set_command, native_value)
+        device.send_command(setter_name, native_value)
 
     # def available(self, device):
     #     """Return whether this entity should be available, with state as given."""
@@ -269,6 +303,7 @@ class SmarterEntityConfig:
 
     @property
     def entity_description(self) -> EntityDescription:
+        """Return entity description."""
         return EntityDescription(
             key=self.key,
             device_class=self.device_class,
@@ -282,12 +317,14 @@ class SmarterEntityConfig:
 
     @property
     def binary_sensor_entity_description(self) -> BinarySensorEntityDescription:
+        """Return binary entity description."""
         return BinarySensorEntityDescription(
             **self.entity_description.__dict__,
         )
 
     @property
     def sensor_entity_description(self) -> SensorEntityDescription:
+        """Return sensor entity description."""
         return SensorEntityDescription(
             **self.entity_description.__dict__,
             native_unit_of_measurement=self.unit,
@@ -296,10 +333,12 @@ class SmarterEntityConfig:
 
     @property
     def switch_entity_description(self) -> SwitchEntityDescription:
+        """Return switch entity description."""
         return SwitchEntityDescription(**self.entity_description.__dict__)
 
     @property
     def number_entity_description(self) -> NumberEntityDescription:
+        """Return number entity description."""
         return NumberEntityDescription(
             key=self.key,
             device_class=self.device_class,
@@ -336,3 +375,17 @@ def _get_matching_configs(product_id):
             yield parsed
 
     raise ValueError(f"Invalid device model {product_id}")
+
+
+def _get_path(bucket: dict, path: str) -> Any:
+    if dict is None or path is None:
+        return None
+
+    iter = bucket
+    for item in path.split("."):
+        if not isinstance(iter, dict):
+            raise ValueError("bucket is not a dict")
+
+        iter = iter.get(item)
+
+    return iter

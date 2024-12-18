@@ -77,7 +77,13 @@
     },
     "number": {
       "is_boiling": {
-        "boil_temperature": "Boil temperature"
+        "name": "Boiling"
+      },
+      "boil_temperature": {
+        "name": "Boil temperature"
+      },
+      "keep_warm_time": {
+        "name": "Keep warm time"
       }
     },
     "binary_sensor": {
@@ -97,9 +103,6 @@
     "switch": {
       "is_boiling": {
         "name": "Boiling"
-      },
-      "smarter_kettle_v3_is_boiling": {
-        "name": "BBBB"
       }
     }
   }

@@ -59,6 +59,7 @@ class SmarterNumber(SmarterEntity, NumberEntity):
     _attr_has_entity_name = True
 
     def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+        """Create instance."""
         super().__init__(device, config, config.number_entity_description)
 
     def set_native_value(self, value: float) -> None:
@@ -68,6 +69,6 @@ class SmarterNumber(SmarterEntity, NumberEntity):
     @property
     def native_value(self) -> float | None:
         """Return the value reported by the number."""
-        if value := self.config.get_value(self.device) is not None:
+        if (value := self.config.get_value(self.device)) is not None:
             return float(value)
         return None

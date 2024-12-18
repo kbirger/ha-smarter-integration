@@ -22,7 +22,10 @@ from .const import (
 
 
 class SmarterEntityConstructor(Protocol):
+    """Type representing constructor of all Smarter entities."""
+
     def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+        """Create instance of entity."""
         pass
 
 
@@ -76,11 +79,17 @@ class SmarterEntity:
 
     @cached_property
     def native_unit_of_measurement(self):
+        """Return native unit of measurement."""
         if self.config.unit is not None:
             return self.config.unit
         if self.device_class == "temperature":
             return UnitOfTemperature.CELSIUS
         return None
+
+    @property
+    def should_poll(self):
+        """Return whether device requires polling."""
+        return False
 
     @property
     def unique_id(self):
@@ -98,7 +107,7 @@ class SmarterEntity:
 
     @property
     def use_device_name(self):
-        """Return whether to use the device name for the entity name"""
+        """Return whether to use the device name for the entity name."""
         own_name = self.config.name or self.config.translation_key
         return not own_name
 
