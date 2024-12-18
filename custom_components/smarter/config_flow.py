@@ -91,6 +91,7 @@ class SmarterConfigFlow(ConfigFlow, domain=DOMAIN):
         return self.async_show_form(step_id="user", data_schema=STEP_USER_DATA_SCHEMA, errors=errors)
 
     async def async_step_choose_devices(self, user_input: dict[str, str] | None = None) -> ConfigFlowResult:
+        """Allow user to select devices to integrate."""
         errors: dict[str, str] = {}
 
         if user_input is not None:

@@ -96,11 +96,7 @@ def async_unload_smarter_platform(hass: HomeAssistant, data: Any, platform: Plat
 
     configs = (get_device_config(driver) for driver in drivers)
 
-    device_services = (
-        service_metadata.service_name
-        for config in configs
-        for service_metadata in config.get_service_metadata(platform)
-    )
+    (service_metadata.service_name for config in configs for service_metadata in config.get_service_metadata(platform))
 
     # global_services = (metadata.service_name for metadata in SmarterDeviceSensor.get_service_metadata())
 
@@ -110,7 +106,7 @@ def async_unload_smarter_platform(hass: HomeAssistant, data: Any, platform: Plat
 
 
 def _get_global_metadata(device_entities):
-    device_entities_map = {entity.entity_id: entity for entity in device_entities}
+    {entity.entity_id: entity for entity in device_entities}
     # return ((metadata, device_entities_map) for metadata in SmarterDeviceSensor.get_service_metadata())
 
 

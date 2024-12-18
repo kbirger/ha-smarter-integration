@@ -65,6 +65,7 @@ class SmarterSwitch(SmarterEntity, SwitchEntity):
     _attr_has_entity_name = True
 
     def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+        """Create instance of switch."""
         super().__init__(device, config, config.switch_entity_description)
 
     @property

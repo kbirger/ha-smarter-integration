@@ -44,6 +44,7 @@ class SmarterSensor(SmarterEntity, SensorEntity):
     _attr_has_entity_name = True
 
     def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+        """Create instance of sensor."""
         super().__init__(device, config, config.sensor_entity_description)
         print(self)
 
