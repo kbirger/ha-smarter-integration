@@ -73,6 +73,30 @@
       },
       "state": {
         "name": "State"
+      },
+      "brewed_keeping_warm": {
+        "name": "Brewed Keeping Warm"
+      },
+      "brewing_started": {
+        "name": "Brewing Started"
+      },
+      "number_of_cups_since_descale": {
+        "name": "Number of Cups Since Descale"
+      },
+      "coffee_soak_percentage": {
+        "name": "Coffee Soak Percentage"
+      },
+      "coffee_custom_brew_time": {
+        "name": "Coffee Custom Brew Time"
+      },
+      "coffee_custom_grind_time": {
+        "name": "Coffee Custom Grind Time"
+      },
+      "keep_warm_time": {
+        "name": "Keep Warm Time"
+      },
+      "keep_warm_time_remaining": {
+        "name": "Keep Warm Time Remaining"
       }
     },
     "number": {
@@ -84,6 +108,12 @@
       },
       "keep_warm_time": {
         "name": "Keep warm time"
+      },
+      "coffee_strength": {
+        "name": "Coffee Strength"
+      },
+      "number_of_cups": {
+        "name": "Number of Cups"
       }
     },
     "binary_sensor": {
@@ -98,11 +128,20 @@
       },
       "kettle_is_present": {
         "name": "Is present"
+      },
+      "cup_mode_enable": {
+        "name": "Cup Mode"
+      },
+      "carafe_is_present": {
+        "name": "Carafe Is Present"
       }
     },
     "switch": {
       "is_boiling": {
         "name": "Boiling"
+      },
+      "is_brewing": {
+        "name": "Brewing"
       }
     }
   }
