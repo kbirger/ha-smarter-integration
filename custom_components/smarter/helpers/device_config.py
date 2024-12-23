@@ -212,7 +212,15 @@ class SmarterEntityConfig:
     def _get_value_for_native(self, native_value: Any):
         for mapping in self._mappings:
             if mapping.get("native_value") == native_value:
-                return mapping.get("value")
+                value = mapping.get("value")
+                _LOGGER.debug("[%s] mapping value %s to %s", self.config_id, native_value, value)
+                return value
+        for mapping in self._mappings:
+            if mapping.get("default", False):
+                value = mapping.get("value")
+                _LOGGER.debug("[%s] found default value %s for %s", self.config_id, native_value)
+                return value
+        _LOGGER.debug("[%s] no mapping found for %s, using native value", self.config_id, native_value)
         return native_value
 
     def _get_native_value_for_value(self, value):

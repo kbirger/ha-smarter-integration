@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Protocol
 
 from homeassistant.const import UnitOfTemperature
@@ -19,6 +20,7 @@ from .const import (
 )
 
 # from .const import LOGGER
+_LOGGER = logging.getLogger(__name__)
 
 
 class SmarterEntityConstructor(Protocol):
@@ -69,12 +71,12 @@ class SmarterEntity:
     @callback
     def _on_state_update(self, state):
         """Handle state update."""
-        # LOGGER.debug(
-        #     "[%s] Received state update for %s",
-        #     self.unique_id,
-        #     self.device.device.identifier,
-        # )
-        # LOGGER.debug(state)
+        _LOGGER.debug(
+            "[%s] Received state update for %s",
+            self.config.config_id,
+            self.device.device.identifier,
+        )
+        _LOGGER.debug(state)
         self.schedule_update_ha_state()
 
     @cached_property
