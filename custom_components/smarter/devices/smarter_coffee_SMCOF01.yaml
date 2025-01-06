@@ -78,3 +78,15 @@ secondary_entities:
         value: true
       - default: true
         value: false
+  - entity: switch
+    translation_key: grind_enable
+    setter: set_grind_enable
+  - entity: number
+    translation_key: preheat_time
+    setter: set_preheat_time
+    icon: "mdi:clock"
+    unit: seconds
+    range:
+      min: 0
+      max: 300
+    step: 1
