@@ -72,3 +72,18 @@ class SmarterNumber(SmarterEntity, NumberEntity):
         if (value := self.config.get_value(self.device)) is not None:
             return float(value)
         return None
+
+    @property
+    def native_step(self):
+        """Return the step."""
+        return self.config.step
+
+    @property
+    def native_min_value(self):
+        """Return the minimum value."""
+        return self.config.min
+
+    @property
+    def native_max_value(self):
+        """Return the minimum value."""
+        return self.config.max

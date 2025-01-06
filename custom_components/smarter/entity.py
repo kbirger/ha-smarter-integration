@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import logging
-from typing import Protocol
+from collections.abc import Callable
 
 from homeassistant.const import UnitOfTemperature
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
-from homeassistant.helpers.entity import EntityDescription
+from homeassistant.helpers.entity import Entity, EntityDescription
 from propcache import cached_property
 from smarter_client.managed_devices.base import BaseDevice
 
@@ -23,15 +23,15 @@ from .const import (
 _LOGGER = logging.getLogger(__name__)
 
 
-class SmarterEntityConstructor(Protocol):
-    """Type representing constructor of all Smarter entities."""
+# class SmarterEntityConstructor(Protocol):
+#     """Type representing constructor of all Smarter entities."""
 
-    def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
-        """Create instance of entity."""
-        pass
+#     def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
+#         """Create instance of entity."""
+#         pass
 
 
-class SmarterEntity:
+class SmarterEntity(Entity):
     """Representation of a Smarter sensor."""
 
     # _attr_has_entity_name = True
@@ -133,13 +133,42 @@ class SmarterEntity:
     @property
     def extra_state_attributes(self):
         """Return extra device attributes associated with entity."""
-        if not self.config._is_primary:
+        if not self.config.is_primary:
             return {
                 "device_id": self.device.id,
                 "kettle_is_present": self.device.status.get("kettle_is_present"),
                 "calibrated": self.device.status.get("calibrated"),
             }
         return {**self.device.status}
+
+    async def async_send_command(
+        self,
+        command_name: str,
+        command_data_text: str | None = None,
+        command_data_number: float | None = None,
+        command_data_boolean: bool | None = None,
+    ):
+        """Send command to device."""
+        # The API requires a `value` to be set. The official client sends `True` if no
+        # actual value is needed
+        return await self.hass.async_add_executor_job(
+            self.device.send_command,
+            command_name,
+            command_data_text or command_data_number or command_data_boolean or True,
+        )
+
+    async def async_get_commands(self):
+        """
+        Get list of commands supported by the underlying device.
+
+        Returns a list of dictionaries. Each dictionary has `name` and `example` keys.
+        The value under the `example` key is a dictionary providing information on the
+        data that can be passed to the command.
+
+        Returns:
+            list[dict["name"|"example]]
+        """
+        return [{"name": command.name, "example": command.example} for command in self.device.device.commands.values()]
 
 
 # @dataclass(frozen=True, kw_only=True)
@@ -177,3 +206,6 @@ class SmarterEntity:
 
 #     get_fn: Callable[[BaseDevice], bool]
 #     set_fn: Callable[[BaseDevice, Any], None]
+
+
+SmarterEntityConstructor = Callable[[BaseDevice, SmarterEntityConfig], SmarterEntity]

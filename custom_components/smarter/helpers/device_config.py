@@ -20,6 +20,8 @@ from homeassistant.util.yaml import load_yaml
 from smarter_client.managed_devices.base import BaseDevice
 
 import custom_components.smarter.devices as device_config_module
+from custom_components.smarter.const import SERVICE_SCHEMA_EMPTY, SmarterSensorEntityFeature
+from custom_components.smarter.helpers.base import ServiceMetadata
 
 # from .smarter_coffee_v2 import SmarterKettleV3DeviceConfig
 
@@ -115,19 +117,33 @@ class SmarterDeviceConfig:
         """Return true if this configuration matches any of the given product_ids."""
         return any(set(product_ids).intersection([product.get("model") for product in self.products]))
 
+    @property
+    def services(self) -> list[ServiceMetadata]:
+        """Return list of supported services."""
+        return [
+            ServiceMetadata(
+                service_name=service["name"],
+                handler_name="async_send_command",
+                command_name=service.get("command_name", True),
+                command_data=service.get("command_data", True),
+                schema=SERVICE_SCHEMA_EMPTY,
+            )
+            for service in self._config.get("services", [])
+        ]
+
 
 class SmarterEntityConfig:
     """Representation of an entity configuration."""
 
     _device: SmarterDeviceConfig
     _config: dict
-    _is_primary: bool
+    is_primary: bool
 
     def __init__(self, device: SmarterDeviceConfig, config: dict, primary=False):
         """Construct an instance of the configuration."""
         self._device = device
         self._config = config
-        self._is_primary = primary
+        self.is_primary = primary
 
     @property
     def name(self):
@@ -235,6 +251,13 @@ class SmarterEntityConfig:
         return self._config.get("setter")
 
     @property
+    def supported_features(self) -> SmarterSensorEntityFeature | None:
+        """Return supported features."""
+        if self.is_primary:
+            return SmarterSensorEntityFeature.SERVICE_AGENT
+        return None
+
+    @property
     def step(self):
         """Return step increment size."""
         return self._config.get("step")
@@ -319,7 +342,7 @@ class SmarterEntityConfig:
             icon=self.icon,
             translation_key=self.translation_key,
             translation_placeholders=self.translation_placeholders,
-            name=None if self._is_primary else self.name,
+            name=None if self.is_primary else self.name,
             has_entity_name=True,
         )
 

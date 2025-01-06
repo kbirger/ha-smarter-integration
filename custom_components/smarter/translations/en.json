@@ -114,6 +114,9 @@
       },
       "number_of_cups": {
         "name": "Number of Cups"
+      },
+      "formula_mode_temperature": {
+        "name": "Formula Mode Temperature"
       }
     },
     "binary_sensor": {
@@ -142,6 +145,9 @@
       },
       "is_brewing": {
         "name": "Brewing"
+      },
+      "formula_mode_enable": {
+        "name": "Formula Mode"
       }
     }
   }

@@ -37,18 +37,24 @@ secondary_entities:
     mapping:
       - native_value: "Boiling"
         value: true
+      - default: true
+        value: false
   - entity: binary_sensor
     translation_key: is_cooling
     state_field: "state"
     mapping:
       - native_value: "Cooling"
         value: true
+      - default: true
+        value: false
   - entity: binary_sensor
     translation_key: is_keep_warm
     state_field: "state"
     mapping:
       - native_value: "Keeping warm"
         value: true
+      - default: true
+        value: false
   - entity: binary_sensor
     translation_key: kettle_is_present
   - entity: switch
@@ -67,12 +73,29 @@ secondary_entities:
         value: true
       - native_value: "Keeping warm"
         value: true
+      - default: true
+        value: false
+  - entity: switch
+    translation_key: formula_mode_enable
+    icon: "mdi:baby-bottle"
+    setter: set_formula_mode_enable
   - entity: number
     translation_key: boil_temperature
     unit: C
     device_class: temperature
     state_class: measurement
     setter: set_boil_temperature
+    icon: "mdi:thermometer"
+    range:
+      min: 0
+      max: 100
+    step: 1
+  - entity: number
+    translation_key: formula_mode_temperature
+    unit: C
+    setter: set_formula_mode_temperature
+    device_class: temperature
+    state_class: measurement
     icon: "mdi:thermometer"
     range:
       min: 0

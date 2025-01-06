@@ -15,6 +15,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from smarter_client.managed_devices.base import BaseDevice
 
+from custom_components.smarter.const import SmarterSensorEntityFeature
 from custom_components.smarter.entity import SmarterEntity
 from custom_components.smarter.helpers.config import async_setup_smarter_platform
 from custom_components.smarter.helpers.device_config import SmarterEntityConfig
@@ -42,16 +43,18 @@ class SmarterSensor(SmarterEntity, SensorEntity):
 
     entity_description: SensorEntityDescription
     _attr_has_entity_name = True
+    _attr_supported_features: SmarterSensorEntityFeature | None
 
     def __init__(self, device: BaseDevice, config: SmarterEntityConfig):
         """Create instance of sensor."""
         super().__init__(device, config, config.sensor_entity_description)
-        print(self)
+
+        self._attr_supported_features = self.config.supported_features
 
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        return self.device.status.get(self.entity_description.key)
+        return self.config.get_value(self.device)
 
 
 # class SmarterDeviceSensor(SmarterSensor):

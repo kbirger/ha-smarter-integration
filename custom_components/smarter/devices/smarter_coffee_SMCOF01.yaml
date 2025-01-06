@@ -48,9 +48,9 @@ secondary_entities:
     state_class: measurement
     setter: set_coffee_strength
     range:
-      min: 0
-      max: 100
-    step: 10
+      min: 20
+      max: 80
+    step: 30
   - entity: number
     translation_key: number_of_cups
     unit: "cups"
@@ -76,3 +76,5 @@ secondary_entities:
         value: true
       - native_value: "Keeping warm"
         value: true
+      - default: true
+        value: false

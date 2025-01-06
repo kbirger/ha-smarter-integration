@@ -61,7 +61,7 @@ SERVICE_SCHEMA_SEND_COMMAND = vol.Schema(
     )
 )
 
-SERVICE_SCHEMA_QUICK_BOIL = cv.make_entity_service_schema({})
+SERVICE_SCHEMA_EMPTY = cv.make_entity_service_schema({})
 SERVICE_SCHEMA_GET_COMMANDS = cv.make_entity_service_schema({})
 
 
