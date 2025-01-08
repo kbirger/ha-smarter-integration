@@ -58,7 +58,7 @@ secondary_entities:
     setter: set_number_of_cups
     range:
       min: 1
-      max: 8
+      max: 12
     step: 1
   - entity: switch
     translation_key: is_brewing
