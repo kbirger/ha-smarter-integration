@@ -140,7 +140,7 @@
       },
       "carafe_is_present": {
         "name": "Carafe Is Present"
-      },
+      }
     },
     "switch": {
       "is_boiling": {
