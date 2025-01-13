@@ -10,7 +10,7 @@ from os.path import dirname, join, splitext
 from typing import Any
 
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
-from homeassistant.components.number import NumberEntityDescription
+from homeassistant.components.number import NumberEntityDescription, NumberMode
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.const import EntityCategory, Platform, UnitOfTemperature
@@ -374,6 +374,7 @@ class SmarterEntityConfig:
             key=self.key,
             device_class=self.device_class,
             entity_category=self.category,
+            mode=NumberMode.BOX if len(self._mappings) > 0 else NumberMode.SLIDER,
             icon=self.icon,
             translation_key=self.translation_key,
             translation_placeholders=self.translation_placeholders,
