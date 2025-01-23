@@ -9,6 +9,26 @@ primary_entity:
   icon: "mdi:kettle"
 secondary_entities:
   - entity: sensor
+    translation_key: boiling_started
+    state_field: boiling_started.ts
+    device_class: timestamp
+    enabled_default: false
+  - entity: sensor
+    translation_key: keep_warm_finished
+    state_field: keep_warm_finished.ts
+    device_class: timestamp
+    enabled_default: false
+  - entity: sensor
+    translation_key: cooled_keeping_warm
+    state_field: cooled_keeping_warm.ts
+    device_class: timestamp
+    enabled_default: false
+  - entity: sensor
+    translation_key: boiled_keeping_warm
+    state_field: boiled_keeping_warm.ts
+    device_class: timestamp
+    enabled_default: false
+  - entity: sensor
     translation_key: "water_temperature"
     unit: C
     device_class: temperature
@@ -112,3 +132,9 @@ secondary_entities:
       min: 0
       max: 40
     step: 1
+  - entity: sensor
+    translation_key: keep_warm_time_remaining
+    unit: min
+    device_class: duration
+    state_class: measurement
+    icon: "mdi:clock"

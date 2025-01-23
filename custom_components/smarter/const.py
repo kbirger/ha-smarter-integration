@@ -21,6 +21,7 @@ PLATFORMS: list[Platform] = [
     Platform.NUMBER,
     Platform.SENSOR,
     Platform.SWITCH,
+    Platform.SELECT,
 ]
 
 SERVICE_QUICK_BOIL = "quick_boil"

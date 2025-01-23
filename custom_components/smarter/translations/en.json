@@ -58,7 +58,24 @@
     }
   },
   "entity": {
+    "select": {
+      "coffee_strength": {
+        "name": "Coffee Strength"
+      }
+    },
     "sensor": {
+      "keep_warm_finished": {
+        "name": "Keep Warm Finished"
+      },
+      "cooled_keeping_warm": {
+        "name": "Cooled Keeping Warm"
+      },
+      "boiled_keeping_warm": {
+        "name": "Boiled Keeping Warm"
+      },
+      "boiling_started": {
+        "name": "Boiling started"
+      },
       "water_temperature": {
         "name": "Water temperature"
       },

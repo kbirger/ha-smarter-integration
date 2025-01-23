@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Iterable
+from datetime import datetime
 from fnmatch import fnmatch
 from os import walk
 from os.path import dirname, join, splitext
@@ -11,7 +12,8 @@ from typing import Any
 
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
 from homeassistant.components.number import NumberEntityDescription, NumberMode
-from homeassistant.components.sensor import SensorEntityDescription
+from homeassistant.components.select import SelectEntityDescription
+from homeassistant.components.sensor import SensorDeviceClass, SensorEntityDescription
 from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.const import EntityCategory, Platform, UnitOfTemperature
 from homeassistant.helpers.entity import EntityDescription
@@ -222,10 +224,30 @@ class SmarterEntityConfig:
         return self._range["max"]
 
     @property
+    def entity_registry_enabled_default(self):
+        """Return true if entity should be enabled by default."""
+        return self._config.get("enabled_default", True)
+
+    @property
+    def entity_registry_visible_default(self):
+        """Return true if entity should be visible by default."""
+        return self.entity_registry_enabled_default and self._config.get("visible_default", True)
+
+    @property
+    def options(self):
+        """Return options for select entity."""
+        return [mapping["value"] for mapping in self._mappings]
+
+    @property
     def _mappings(self):
         return self._config.get("mapping", [])
 
     def _get_value_for_native(self, native_value: Any):
+        if self.device_class == SensorDeviceClass.TIMESTAMP:
+            now = datetime.now()
+            local_now = now.astimezone()
+            local_tz = local_now.tzinfo
+            return datetime.fromtimestamp(native_value, tz=local_tz)
         for mapping in self._mappings:
             if mapping.get("native_value") == native_value:
                 value = mapping.get("value")
@@ -343,6 +365,8 @@ class SmarterEntityConfig:
             translation_key=self.translation_key,
             translation_placeholders=self.translation_placeholders,
             name=None if self.is_primary else self.name,
+            entity_registry_enabled_default=self.entity_registry_enabled_default,
+            entity_registry_visible_default=self.entity_registry_visible_default,
             has_entity_name=True,
         )
 
@@ -366,6 +390,14 @@ class SmarterEntityConfig:
     def switch_entity_description(self) -> SwitchEntityDescription:
         """Return switch entity description."""
         return SwitchEntityDescription(**self.entity_description.__dict__)
+
+    @property
+    def select_entity_description(self) -> SelectEntityDescription:
+        """Return select entity description."""
+        return SelectEntityDescription(
+            key=self.key,
+            options=[mapping["value"] for mapping in self._mappings],
+        )
 
     @property
     def number_entity_description(self) -> NumberEntityDescription:

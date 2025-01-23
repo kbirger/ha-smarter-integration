@@ -10,12 +10,14 @@ primary_entity:
 secondary_entities:
   - entity: sensor
     translation_key: brewed_keeping_warm
-    state_field: status.brewed_keeping_warm
-    state_class: measurement
+    state_field: brewed_keeping_warm.ts
+    device_class: timestamp
+    enabled_default: false
   - entity: sensor
     translation_key: brewing_started
-    state_field: status.brewing_started
-    state_class: measurement
+    state_field: brewing_started.ts
+    enabled_default: false
+    unit: datetime
   - entity: sensor
     translation_key: number_of_cups_since_descale
     state_class: measurement
@@ -47,15 +49,35 @@ secondary_entities:
     icon: "mdi:cup"
   - entity: binary_sensor
     translation_key: carafe_is_present
+  - entity: select
+    translation_key: coffee_strength
+    state_field: coffee_strength
+    setter: set_coffee_strength
+    mapping:
+      - value: 20
+        native_value: "Weak"
+      - value: 50
+        native_value: "Medium"
+      - value: 80
+        native_value: "Strong"
+    setter_mapping:
+      - value: 20
+        native_value: "Weak"
+      - value: 50
+        native_value: "Medium"
+      - value: 80
+        native_value: "Strong"
   - entity: number
     translation_key: coffee_strength
-    unit: "%"
     state_class: measurement
     setter: set_coffee_strength
-    range:
-      min: 20
-      max: 80
-    step: 30
+    mapping:
+      - value: 20
+        native_value: "Weak"
+      - value: 50
+        native_value: "Medium"
+      - value: 80
+        native_value: "Strong"
     icon: "mdi:wifi-strength-1"
   - entity: number
     translation_key: number_of_cups
