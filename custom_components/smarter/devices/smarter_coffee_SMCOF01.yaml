@@ -29,11 +29,14 @@ secondary_entities:
   - entity: sensor
     translation_key: coffee_soak_percentage
     state_class: measurement
+    enabled_default: false
   - entity: sensor
     translation_key: coffee_custom_brew_time
+    enabled_default: false
   - entity: sensor
     translation_key: coffee_custom_grind_time
     state_class: measurement
+    enabled_default: false
   - entity: sensor
     translation_key: keep_warm_time
     unit: minutes
@@ -47,38 +50,38 @@ secondary_entities:
   - entity: binary_sensor
     translation_key: cup_mode_enable
     icon: "mdi:cup"
+    enabled_default: false
   - entity: binary_sensor
     translation_key: carafe_is_present
   - entity: select
     translation_key: coffee_strength
     state_field: coffee_strength
+    icon: "mdi:wifi-strength-1"
     setter: set_coffee_strength
     mapping:
-      - value: 20
-        native_value: "Weak"
-      - value: 50
-        native_value: "Medium"
-      - value: 80
-        native_value: "Strong"
+      - value: "Weak"
+        native_value: 20
+      - value: "Medium"
+        native_value: 50
+      - value: "Strong"
+        native_value: 80
     setter_mapping:
-      - value: 20
-        native_value: "Weak"
-      - value: 50
-        native_value: "Medium"
-      - value: 80
-        native_value: "Strong"
+      - value: "Weak"
+        native_value: 20
+      - value: "Medium"
+        native_value: 50
+      - value: "Strong"
+        native_value: 80
   - entity: number
     translation_key: coffee_strength
     state_class: measurement
     setter: set_coffee_strength
-    mapping:
-      - value: 20
-        native_value: "Weak"
-      - value: 50
-        native_value: "Medium"
-      - value: 80
-        native_value: "Strong"
+    range:
+      min: 20
+      max: 80
+    step: 30
     icon: "mdi:wifi-strength-1"
+    enabled_default: false
   - entity: number
     translation_key: number_of_cups
     unit: "cups"
@@ -95,7 +98,7 @@ secondary_entities:
     device_class: duration
     setter: set_preheat_time
     state_class: measurement
-    icon: "mdi:clock"
+    icon: "mdi:coffee-maker-outline"
     range:
       min: 0
       max: 300
@@ -127,9 +130,13 @@ secondary_entities:
         setter: start_brew
         native_value: true
     mapping:
+      - native_value: "Preheating"
+        value: true
       - native_value: "Brewing"
         value: true
-      - native_value: "Keeping warm"
+      - native_value: "Dripping"
+        value: true
+      - native_value: "Keeping Warm"
         value: true
       - default: true
         value: false

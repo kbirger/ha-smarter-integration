@@ -60,18 +60,18 @@
   "entity": {
     "select": {
       "coffee_strength": {
-        "name": "Coffee Strength"
+        "name": "Coffee strength"
       }
     },
     "sensor": {
       "keep_warm_finished": {
-        "name": "Keep Warm Finished"
+        "name": "Keep warm finished"
       },
       "cooled_keeping_warm": {
-        "name": "Cooled Keeping Warm"
+        "name": "Cooled keeping warm"
       },
       "boiled_keeping_warm": {
-        "name": "Boiled Keeping Warm"
+        "name": "Boiled keeping warm"
       },
       "boiling_started": {
         "name": "Boiling started"
@@ -92,28 +92,28 @@
         "name": "State"
       },
       "brewed_keeping_warm": {
-        "name": "Brewed Keeping Warm"
+        "name": "Brewed keeping warm"
       },
       "brewing_started": {
-        "name": "Brewing Started"
+        "name": "Brewing started"
       },
       "number_of_cups_since_descale": {
-        "name": "Number of Cups Since Descale"
+        "name": "Number of cups since descale"
       },
       "coffee_soak_percentage": {
-        "name": "Coffee Soak Percentage"
+        "name": "Coffee soak percentage"
       },
       "coffee_custom_brew_time": {
-        "name": "Coffee Custom Brew Time"
+        "name": "Coffee custom brew time"
       },
       "coffee_custom_grind_time": {
-        "name": "Coffee Custom Grind Time"
+        "name": "Coffee custom grind time"
       },
       "keep_warm_time": {
-        "name": "Keep Warm Time"
+        "name": "Keep warm time"
       },
       "keep_warm_time_remaining": {
-        "name": "Keep Warm Time Remaining"
+        "name": "Keep warm time remaining"
       }
     },
     "number": {
@@ -127,16 +127,16 @@
         "name": "Keep warm time"
       },
       "coffee_strength": {
-        "name": "Coffee Strength"
+        "name": "Coffee strength"
       },
       "number_of_cups": {
-        "name": "Number of Cups"
+        "name": "Number of cups"
       },
       "formula_mode_temperature": {
-        "name": "Formula Mode Temperature"
+        "name": "Formula mode temperature"
       },
       "preheat_time": {
-        "name": "Preheat Time"
+        "name": "Preheat time"
       }
     },
     "binary_sensor": {
@@ -153,10 +153,10 @@
         "name": "Is present"
       },
       "cup_mode_enable": {
-        "name": "Cup Mode"
+        "name": "Cup mode"
       },
       "carafe_is_present": {
-        "name": "Carafe Is Present"
+        "name": "Carafe is present"
       }
     },
     "switch": {
@@ -167,7 +167,7 @@
         "name": "Brewing"
       },
       "formula_mode_enable": {
-        "name": "Formula Mode"
+        "name": "Formula mode"
       },
       "grind_enable": {
         "name": "Grind enabled"
