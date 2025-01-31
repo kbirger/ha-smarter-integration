@@ -395,7 +395,7 @@ class SmarterEntityConfig:
     def select_entity_description(self) -> SelectEntityDescription:
         """Return select entity description."""
         return SelectEntityDescription(
-            key=self.key,
+            **self.entity_description.__dict__,
             options=[mapping["value"] for mapping in self._mappings],
         )
 
