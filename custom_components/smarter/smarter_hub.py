@@ -48,7 +48,7 @@ class SmarterHub:
     def _sign_in(self, username: str, password: str, refresh_token: str | None = None):
         if refresh_token is not None:
             try:
-                return self.client.sign_in_with_refresh_token(refresh_token)
+                return self.client.refresh(refresh_token)
             except Exception as err:
                 LOGGER.warning("failed to log in with provided refresh token. %s", err)
                 return self.client.sign_in(username, password)
