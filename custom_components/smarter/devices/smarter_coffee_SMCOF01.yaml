@@ -35,8 +35,8 @@ secondary_entities:
     enabled_default: false
   - entity: sensor
     translation_key: coffee_custom_grind_time
-    state_class: measurement
     enabled_default: false
+    state_class: measurement
   - entity: sensor
     translation_key: keep_warm_time
     unit: minutes

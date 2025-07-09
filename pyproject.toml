@@ -2,13 +2,13 @@
 dependencies = ["smarter-client>=0.3.0-dev.4", "homeassistant>=2025.7.1"]
 requires-python = ">=3.13.2"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 name = "homeassistant-smarter"
-version = "0.4.0-dev.15"
+version = "0.4.0-dev.16"
 description = "Default template for PDM package"
 authors = [{ name = "Kirill Birger", email = "kbirger@gmail.com" }]
 
-[project.optional-dependencies]
+[project.optional-dependencpyies]
 dev = [
     "mypy>=1.13.0",
     "pytest-homeassistant-custom-component>=0.13.261",

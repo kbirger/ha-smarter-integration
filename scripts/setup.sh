@@ -2,7 +2,9 @@
 set -e
 
 curl -sSL https://pdm-project.org/install-pdm.py | python3 -
-
+# export CC=gcc
+# pdm use 3.13.2
+# pdm self add zstandard
 pdm install -G dev,testing
 
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"

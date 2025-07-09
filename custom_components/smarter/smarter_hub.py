@@ -10,7 +10,7 @@ from smarter_client.domain.smarter_client import SmarterClient
 from smarter_client.managed_devices import load_from_network
 from smarter_client.managed_devices.base import BaseDevice
 
-from custom_components.smarter.const import DOMAIN, LOGGER
+from custom_components.smarter.const import DOMAIN
 
 
 class DeviceNotFoundError(Exception):
@@ -46,12 +46,12 @@ class SmarterHub:
         self.client = SmarterClient()
 
     def _sign_in(self, username: str, password: str, refresh_token: str | None = None):
-        if refresh_token is not None:
-            try:
-                return self.client.refresh(refresh_token)
-            except Exception as err:
-                LOGGER.warning("failed to log in with provided refresh token. %s", err)
-                return self.client.sign_in(username, password)
+        # if refresh_token is not None:
+        #     try:
+        #         return self.client.refresh(refresh_token)
+        #     except Exception as err:
+        #         LOGGER.warning("failed to log in with provided refresh token. %s", err)
+        #         return self.client.sign_in(username, password)
 
         return self.client.sign_in(username, password)
 

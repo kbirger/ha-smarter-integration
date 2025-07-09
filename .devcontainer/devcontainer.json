@@ -1,5 +1,5 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/python:1-3.12",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.13",
   "name": "Smarter Kettle and Coffee integration integration development",
   "appPort": [
     "8123:8123"
